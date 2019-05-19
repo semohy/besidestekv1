@@ -4,10 +4,8 @@ class HomeController extends BaseController
 {
 
 	public function index(){
-		return $this->view('404');
+		return $this->view('template1/index');
 	}
 
-	public function deneme_post(){
-		echo "denemepost";
-	}
+	
 }

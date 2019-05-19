@@ -4,7 +4,7 @@
 *  Router main class
 */
 class Route 
-{
+{	
 
 	public static function parse_url()
 
@@ -26,8 +26,8 @@ class Route
 
     public static function get($url, $callback)
     {
-
-        if ($_SERVER['REQUEST_METHOD'] ==  'GET' )
+    	
+        if ($_SERVER['REQUEST_METHOD'] ==  'GET'  )
         {	
 
         	$patterns = [
@@ -67,17 +67,16 @@ class Route
 
 	        			call_user_func_array([new $className, $controller[1]], $parameters);
 
-	                 }
+	                 }else{}
 
 	                }
 
-	            } else {
-	            	echo "Sayfa Bulunamadı";
 	            }
-	    }
-
+	    } 
+	   
     }
 
+    
     public static function post($url,$callback)
     {
 
@@ -102,20 +101,18 @@ class Route
 
 	        		$controllerFile = __DIR__ . '/../Controllers/' .$controller[0] . '.php';
 
-	        		var_dump($controllerFile);
+	        		
 	        		if (file_exists($controllerFile)) {
 
 	        			require $controllerFile;
 
-
+	        			$parameters = $_POST;
 	        			call_user_func_array([new $className, $controller[1]], $parameters);
 
 	                 }
 
 	                }
 
-	            } else {
-	            	echo "Sayfa Bulunamadı";
 	            }
 	    }
 

@@ -2,4 +2,6 @@
 
 Route::get('/','HomeController@index');
 
-Route::post('/deneme','HomeController@deneme_post');
+Route::get('/register','Auth/RegisterController@index');
+Route::post('/register','Auth/RegisterController@store');
+
