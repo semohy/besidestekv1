@@ -18,50 +18,53 @@
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="<?php echo APP_URL.'register'; ?>">
 
-                        <div class="form-group <?php echo (isset($returned_Inputs['name'])) ? 'has-error' : '' ?> ">
-                            <label for="name" class="col-md-4 control-label">İsim</label>
+                        <div class="form-group <?php echo ( isset($returned_Inputs) && in_array('namel',$returned_Inputs)) ? 'has-error' : '' ?> ">
+                            <label for="name" class="col-md-4 control-label">İsim Soyisim</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="<?php echo (isset($returned_Inputs['name'])) ? $returned_Inputs['name'] : '' ?>" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" required autofocus>
 
-                                <?php echo (isset($returned_Inputs['name'])) ? `
-                                    <span class="help-block">
-                                        <strong>`.$returned_Inputs_message['name'].`</strong>
-                                    </span>
-                                    ` : ''
-                                 ?>
+                                <?php if (isset($returned_Inputs) && in_array('name',$returned_Inputs)) : ?>
+                                    <?php foreach($returned_Inputs_message['name'] as $v ) : ?>
+                                        <span class="help-block">
+                                            <strong><?php echo $v; ?></strong>
+                                        </span>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                                 
                             </div>
                         </div>
 
-                        <div class="form-group <?php echo (isset($returned_Inputs['email'])) ? 'has-error' : '' ?> ">
+                        <div class="form-group <?php echo ( isset($returned_Inputs) && in_array('email',$returned_Inputs)) ? 'has-error' : '' ?> ">
                             <label for="email" class="col-md-4 control-label">Email Adresi</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="<?php echo (isset($returned_Inputs['email'])) ? $returned_Inputs['email'] : '' ?>" required autofocus>
+                                <input id="email" type="email" class="form-control" name="email" required autofocus>
 
-                                <?php echo (isset($returned_Inputs['email'])) ? `
-                                    <span class="help-block">
-                                        <strong>`.$returned_Inputs_message['email'].`</strong>
-                                    </span>
-                                    ` : ''
-                                 ?>
+                                <?php if (isset($returned_Inputs) && in_array('email',$returned_Inputs)) : ?>
+                                    <?php foreach($returned_Inputs_message['email'] as $v ) : ?>
+                                        <span class="help-block">
+                                            <strong><?php echo $v; ?></strong>
+                                        </span>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                                 
                             </div>
                         </div>
 
-                        <div class="form-group <?php echo (isset($returned_Inputs['password'])) ? 'has-error' : '' ?> ">
+                        <div class="form-group <?php echo ( isset($returned_Inputs) && in_array('password',$returned_Inputs)) ? 'has-error' : '' ?> ">
                             <label for="password" class="col-md-4 control-label">Parola</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required autofocus>
 
-                                <?php echo (isset($returned_Inputs['password'])) ? `
-                                    <span class="help-block">
-                                        <strong>`.$returned_Inputs_message['password'].`</strong>
-                                    </span>
-                                    ` : ''
-                                 ?>
+                                <?php if (isset($returned_Inputs) && in_array('password',$returned_Inputs)) : ?>
+                                    <?php foreach($returned_Inputs_message['password'] as $v ) : ?>
+                                        <span class="help-block">
+                                            <strong><?php echo $v; ?></strong>
+                                        </span>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                                 
                             </div>
                         </div>

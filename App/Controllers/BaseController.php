@@ -26,8 +26,9 @@ class BaseController{
 
     {
 
-        require __DIR__ . '/../Models/' . strtolower($name) . '.php';
-
+        require __DIR__ . '/../Models/' . $name . '.php';
+        $name = explode('/',$name);
+        $name = end($name);
         return new $name();
 
     }

@@ -2,31 +2,35 @@
 
 require 'App/Validation/BaseValidation.php';
 
-class registerValidation
+class registerValidation extends BaseValidation
 {
 	protected $rules = array();
 
 	public function __construct($posts = array())
 	{	
+		
+		parent::__construct($posts);
 
 		$rules = [
-			'password' => 'min:6|confirm:password-confirmation'
+			'email' => 'unique:users-email',
+			'password' => 'min:6|confirm:password_confirmation',
 		];
 
-		$this->make($posts,$rules);
-	}
+		$field_name = [
+			'password' 				=> "Parola",
+			'password_confirmation' => 'Parola Tekrar',
+		];
 
-	protected function make($posts,$rules){
-
-		foreach ($rules as $ruleKey => $ruleValue) {
-
-			$ruleValue = explode('|', $ruleValue);
-
-			foreach ($ruleValue as $v) {
-				$v = explode(':', $v);
-				call_user_func_array([new BaseValidation($posts), $v[0]], [$ruleKey,$v[1] ] );
-			}
-			
+		$errors = $this->make($posts,$rules,$field_name);
+		
+		if (  $errors != null && count($errors) > 0 ) {
+			$_SESSION["errors"]["validation"] = $errors;
+			header('location: register');
+			exit();
 		}
+
+	
 	}
+
+	
 }

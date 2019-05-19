@@ -11,7 +11,7 @@ require __DIR__ . '/Database.php';
 require __DIR__.'/Controllers/BaseController.php';
 require __DIR__ . '/Models/BaseModel.php';
 
-define('APP_url_return', false);
+/*
 
 function autoload_App($classname)
 {
@@ -65,3 +65,5 @@ spl_autoload_register("autoload_Controller");
 spl_autoload_register("autoload_Model");
 spl_autoload_register("autoload_Helpers");
 spl_autoload_register("autoload_Validations");
+
+*/
