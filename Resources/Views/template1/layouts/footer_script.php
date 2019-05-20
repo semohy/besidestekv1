@@ -19,6 +19,13 @@
                 $('#sidebar, #sidebar-bg').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+
+                if( $('#sidebar').hasClass('active')){
+                    $('#content').css('width','calc(100%)');
+                }else{
+                    $('#content').css('width','calc(100% - 250px)');
+                }
+                
             });
 
            

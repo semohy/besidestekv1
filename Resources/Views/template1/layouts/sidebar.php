@@ -47,6 +47,65 @@
                 </li>
 
                 <!--sidebar contents here -->
+
+                <li>
+                    <a href="pages/cari.html">Cari Hesaplar</a>
+                </li>
+                <li>
+                    <a href="#ticarisubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ticari İşlem</a>
+                     <ul class="collapse list-unstyled" id="ticarisubmenu">
+                        <li>
+                            <a href="#">Satış</a>
+                        </li>
+                        <li>
+                            <a href="#">Alış</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#bankaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bankalar</a>
+                    <ul class="collapse list-unstyled" id="bankaSubmenu">
+                        <li>
+                            <a href="#">Hesaplar</a>
+                        </li>
+                        <li>
+                            <a href="#">Krediler</a>
+                        </li>
+                        <li>
+                            <a href="#">Vadeler</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#stokSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stoklar</a>
+                    <ul class="collapse list-unstyled" id="stokSubmenu">
+                        <li>
+                            <a href="#">Tüm Stoklar</a>
+                        </li>
+                        <li>
+                            <a href="#">Depolar</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ifSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">İrsaliye ve Fatura</a>
+                    <ul class="collapse list-unstyled" id="ifSubmenu">
+                        <li>
+                            <a href="#">İrsaliye Göster</a>
+                        </li>
+                        <li>
+                            <a href="#">İrsaliye Düzenle</a>
+                        </li>
+                        <li>
+                            <a href="#">Fatura Göster</a>
+                        </li>
+                        <li>
+                            <a href="#">Fatura Düzenle</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- #END_Sidebarlayouts -->
                 
             </ul>
 
