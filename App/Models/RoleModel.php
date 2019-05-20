@@ -14,4 +14,13 @@ class RoleModel extends BaseModel
 		$q = $this->db->query($sql)->fetchObject('RoleModel');
 		return $q;
 	}
+
+	public function getRoleById($name)
+	{
+		
+		$sql = 'SELECT * FROM '.$this->table.' WHERE id="'.$name.'"';
+
+		$q = $this->db->query($sql)->fetchObject('RoleModel');
+		return $q;
+	}
 }

@@ -57,5 +57,37 @@ class UsersModel extends BaseModel
 		return $role_model->getRoleByName($name); 
 	}
 
+	public function getRoleById($name){
+
+		$role_model = new RoleModel();
+		
+		return $role_model->getRoleById($name); 
+	}
+
+
+	public function getUser($ar){
+
+		$sql_where = ""; 
+		$bind_param = array();
+
+		foreach ($ar as $key => $value) {
+		 	$sql_where .= $key." = :".$key." AND ";
+		 	$bind_param[":".$key] = $value;
+		 } 
+		
+		$sql_where = substr($sql_where, 0, -4);
+
+		$sql = "SELECT * FROM ".$this->table." WHERE ".$sql_where;
+
+		$q = $this->db->prepare($sql);
+		
+		$q->execute($bind_param);
+
+		$user = $q->fetch(PDO::FETCH_OBJ);
+		
+		return $user;
+		
+	}
+
 
 }
