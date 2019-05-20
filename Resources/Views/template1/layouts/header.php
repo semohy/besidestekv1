@@ -30,8 +30,8 @@
                         <?php echo APP_NAME; ?>
                     </a></h4>
                         <ul class="nav navbar-nav ml-auto text-white">
-
-                         <?php if( !isset($_SESSION["user_id"]) ): ?>
+                            
+                         <?php if( !$Auth->auth ): ?>
     
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo APP_URL.'login'; ?>">Giriş</a></li>
@@ -72,7 +72,7 @@
 
             //session_start();
             
-            if (isset($_SESSION["user_id"])) {
+             if( $Auth->auth ){
                 require __DIR__.'/sidebar.php';
             }
             echo `

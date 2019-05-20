@@ -1,9 +1,6 @@
 <?php
 
-require  'App/Validation/auth/loginValidation.php';
-
 require  'App/Helpers/SessionErrorHandler.php';
-require  'App/Helpers/ClearInputs.php';
 require  'App/Helpers/Authenticate.php';
 
 class DashboardController extends BaseController
@@ -18,13 +15,15 @@ class DashboardController extends BaseController
 
 		$auth =  new Authenticate();
 		$auth->isLogin();
+
+		$this->view_data["Auth"]  = $auth;
 		
 
 	}
 
 	public function index(){
-		//return $this->view('template1/pages/auth/login',$this->view_data);
-		//session_destroy();
+
+		return $this->view('template1/pages/user/dashboard',$this->view_data);
 	}
 
 	

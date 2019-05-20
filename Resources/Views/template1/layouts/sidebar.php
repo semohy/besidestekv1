@@ -8,10 +8,10 @@
                         </div>
                 </li>
                     <div class="row">
-                        <p class="mx-auto">{{Auth::user()->name}}</p>
+                        <p class="mx-auto"> <?php echo $Auth->user_name; ?> </p>
                     </div>
                     <div class="row">
-                        <b class="row mx-auto">İşletme:</b>{{Auth::user()->email}}
+                        <b class="row mx-auto">İşletme:</b> <?php echo $Auth->user_email; ?>
                     </div>
                     <div class="row justify-content-center">
 
@@ -33,12 +33,10 @@
 
                             </li>
                             <li>
-                                <a class="nav-link"data-toggle="tooltip" data-placement="bottom" title="Çıkış Yap" href="{{ route('logout',app()->getLocale())  }}"
+                                <a class="nav-link"data-toggle="tooltip" data-placement="bottom" title="Çıkış Yap" href="<?php echo APP_URL.'logout';?>"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i></a>
-                                <form id="logout-form" action="{{ route('logout',app()->getLocale())  }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                                <form id="logout-form" action="<?php echo APP_URL.'logout';?>" method="POST" style="display: none;"></form>
                             </li>
                             
                         </ul>
@@ -48,11 +46,7 @@
                     <br />
                 </li>
 
-                @if(Auth::user()->hasRole('root'))
-                    @include('layouts.Partials.auth.sidebarLayout.rootSidebarContent')
-                @else
-                    @include('layouts.Partials.auth.sidebarLayout.userSidebarContent')
-                @endif
+                <!--sidebar contents here -->
                 
             </ul>
 

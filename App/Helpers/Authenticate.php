@@ -5,7 +5,11 @@
 class Authenticate
 {	
 	public $auth = False;
+	
 	public $user_id;
+	public $user_name;
+	public $user_email;
+	public $user_role;
 
 	public function __construct()
 	{
@@ -61,6 +65,8 @@ class Authenticate
 			$_SESSION['AUTHENTİCATE']["role"] = $model->getRoleById($user->role_id)->name;
 			$_SESSION['AUTHENTİCATE']["email"] = $user->email;
 
+			$this-user();
+			
 			return header('location: dashboard');
 			exit();
 		}else{
@@ -70,6 +76,13 @@ class Authenticate
 			exit();
 		}
 
+	}
+
+	public function user()
+	{
+			$this->user_name = $_SESSION['AUTHENTİCATE']["name"];
+			$this->user_role = $_SESSION['AUTHENTİCATE']["role"];
+			$this->user_email  = $_SESSION['AUTHENTİCATE']["email"];
 	}
 
 	
