@@ -4,6 +4,8 @@ require  'App/Validation/auth/registerValidation.php';
 require  'App/Helpers/SessionErrorHandler.php';
 require 'App/Helpers/ClearInputs.php';
 
+require  'App/Helpers/Authenticate.php';
+
 class RegisterController extends BaseController
 {
 	public $view_data = array();
@@ -13,6 +15,9 @@ class RegisterController extends BaseController
 		
 		$session_errors = new SessionErrorHandler();
 		$this->view_data = $session_errors->errors;
+
+		$auth =  new Authenticate();
+		$auth->isLogin();
 		
 	}
 

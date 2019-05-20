@@ -11,12 +11,13 @@ class LoginController extends BaseController
 	public $view_data = array();
 
 	public function __construct()
-	{
-		$x =  new Authenticate();
-		var_dump($x->auth);
-
+	{	
+		
 		$session_errors = new SessionErrorHandler();
 		$this->view_data = $session_errors->errors;
+
+		$auth =  new Authenticate();
+		$auth->isLogin();
 		
 
 	}

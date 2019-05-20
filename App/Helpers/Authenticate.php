@@ -9,21 +9,38 @@ class Authenticate
 
 	public function __construct()
 	{
-		//session_start();
+
 	}
 
 	public function isLogin()
-	{
+	{	
+		$url = new Route();
+		$url = explode('/', $url->parse_url());
+
 		if( isset( $_SESSION['AUTHENTİCATE']["user_id"] )  ){
 
 			$this->auth = True;
 			$this->user_id = $_SESSION['AUTHENTİCATE']["user_id"];
+			
+			if( in_array('login', $url) || in_array('register', $url) ){
+
+				header('location: dashboard');
+				exit();
+			}
 			return true;
+
 		}else{
 
 			$this->user_id = false;
-			header('location: login');
-			exit();
+
+			if( !in_array('login', $url) && !in_array('register', $url) ){
+				//url login değilse...
+				header('location: login');
+				exit();
+			}
+			
+			return false;
+
 		}
 	}
 
@@ -43,6 +60,14 @@ class Authenticate
 			$_SESSION['AUTHENTİCATE']["name"] = $user->name;
 			$_SESSION['AUTHENTİCATE']["role"] = $model->getRoleById($user->role_id)->name;
 			$_SESSION['AUTHENTİCATE']["email"] = $user->email;
+
+			return header('location: dashboard');
+			exit();
+		}else{
+			
+			$_SESSION['errors'] = "Kullanıcı adı veya Şifre Hatalı";
+			return header('location: login');
+			exit();
 		}
 
 	}

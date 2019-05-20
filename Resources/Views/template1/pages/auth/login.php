@@ -10,6 +10,17 @@
 
 <!-- Content !-->
 <div class="container">
+
+     <?php if(count($errors) > 0) : ?>
+        <div class="alert alert-danger">
+            <ul>
+                <?php foreach($errors as $e) : ?>
+                    <li><?php echo $e; ?></li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    <?php endif ?>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
