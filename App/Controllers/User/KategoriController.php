@@ -3,7 +3,9 @@
 require  'App/Helpers/SessionErrorHandler.php';
 require  'App/Helpers/Authenticate.php';
 
-class DashboardController extends BaseController
+require 'App/Helpers/ClearInputs.php';
+
+class KategoriController extends BaseController
 {
 	public $view_data = array();
 
@@ -22,7 +24,7 @@ class DashboardController extends BaseController
 
 	public function index(){
 
-		return $this->view('template1/pages/user/dashboard',$this->view_data);
+		return $this->view('template1/pages/user/kategoriler',$this->view_data);
 	}
 
 	

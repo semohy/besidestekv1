@@ -49,8 +49,13 @@
                 <!--sidebar contents here -->
 
                 <li>
+                    <a href="<?php echo APP_URL.'kategoriler';?>">Kategoriler</a>
+                </li>
+
+                 <li>
                     <a href="pages/cari.html">Cari Hesaplar</a>
                 </li>
+
                 <li>
                     <a href="#ticarisubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ticari İşlem</a>
                      <ul class="collapse list-unstyled" id="ticarisubmenu">
