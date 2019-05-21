@@ -31,7 +31,7 @@
                           <th>Kategori Kodu</th>
                           <th>Üst Kategori Kodu</th>  
                           <th>Kategori Adı</th>
-                          
+                          <th></th>
                         </tr>
                       </thead>
                    </table>
@@ -135,11 +135,7 @@
             { "data": "user_name" },
             { "data": "user_email" },
             { "data": "role_name" },
-            //{ "data": "actions",
-              //render: function(data){
-                //  return htmlDecode(data);
-              //}
-            //} 
+            { "data": "actions"} 
           ]
   });
   

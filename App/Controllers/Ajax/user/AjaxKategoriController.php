@@ -36,11 +36,28 @@ class AjaxKategoriController extends BaseController
 		    ',
 			"where" => "role_id = 2",
 			"searchColumns" => ["users.name","users.email","roles.name"],
-			"printColumns" => ["user_name","user_email","role_name"]
+			"printColumns" => ["user_id","user_name","user_email","role_name"]
 		];
 
 		$datatable = new Datatable($post,$dt_Data);
-		echo json_encode($datatable->make());
+		$gelen = $datatable->make();
+
+		foreach ($gelen["data"] as $key => $value) {
+			$item_id = $gelen["data"][$key]["user_id"];
+		    $form = '
+		    	<button data-toggle="modal" data-type1="itemDelete" data-itemId="'.$item_id.'" data-target="#userModal" class="openModal_button btn btn-danger" role="button" aria-pressed="true">Sil</button>
+				<button  data-toggle="modal" data-type1="itemEdit" data-itemId="'.$item_id.'" data-target="#userModal" class="openModal_button btn btn-primary" role="button" aria-pressed="true">Düzenle</button>
+		    ';
+
+			$gelen["data"][$key]["actions"] = $form;
+			unset($gelen["data"][$key]["user_id"]);
+		}
+
+		
+
+		echo json_encode($gelen);
+
+
 		
 	}
 
