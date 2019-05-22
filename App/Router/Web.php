@@ -17,3 +17,12 @@ Route::post('/kategoriler/store','User/KategoriController@store');
 
 Route::post('/ajax/kategoriler','Ajax/user/AjaxKategoriController@index');
 Route::post('/ajax/kategoriler/all','Ajax/user/AjaxKategoriController@all');
+
+
+Route::get('/stoklar','User/StokController@index');
+
+Route::post('/stoklar/item/destroy','User/StokController@destroy');
+Route::post('/stoklar/store','User/StokController@store');
+Route::post('/ajax/stoklar','Ajax/user/AjaxStokController@index');
+
+

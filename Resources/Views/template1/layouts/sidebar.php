@@ -52,6 +52,10 @@
                     <a href="<?php echo APP_URL.'kategoriler';?>">Kategoriler</a>
                 </li>
 
+                <li>
+                    <a href="<?php echo APP_URL.'stoklar';?>">Stoklar</a>
+                </li>
+
                  <li>
                     <a href="pages/cari.html">Cari Hesaplar</a>
                 </li>
