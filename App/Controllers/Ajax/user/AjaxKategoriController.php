@@ -11,6 +11,8 @@ class AjaxKategoriController extends BaseController
 {
 	public $view_data = array();
 
+	private $user_id;
+
 	public function __construct()
 	{	
 		
@@ -20,6 +22,9 @@ class AjaxKategoriController extends BaseController
 		$auth =  new Authenticate();
 		$auth->isLogin();
 		$this->view_data["Auth"]  = $auth;
+
+		$auth->user();
+		$this->user_id = $auth->user_id;
 		
 
 	}
@@ -29,21 +34,19 @@ class AjaxKategoriController extends BaseController
 		$post = $_POST;
 		
 		$dt_Data = [
-			"select" => "users.id as user_id, users.name as user_name, users.email as user_email, roles.name as role_name",
-			"from" => "users",
-		    "relations" => '
-		     	inner join roles on users.role_id = roles.id
-		    ',
-			"where" => "role_id = 2",
-			"searchColumns" => ["users.name","users.email","roles.name"],
-			"printColumns" => ["user_id","user_name","user_email","role_name"]
+			"select" => "kategori_id,ust_kategori_id,kategori_adi",
+			"from" => "kategoriler",
+		    "relations" => '',
+			"where" => "user_id = ".$this->user_id,
+			"searchColumns" => ["kategori_id","ust_kategori_id","kategori_adi"],
+			"printColumns" => ["kategori_id","ust_kategori_id","kategori_adi",]
 		];
 
 		$datatable = new Datatable($post,$dt_Data);
 		$gelen = $datatable->make();
 
 		foreach ($gelen["data"] as $key => $value) {
-			$item_id = $gelen["data"][$key]["user_id"];
+			$item_id = $gelen["data"][$key]["kategori_id"];
 		    $form = '
 		    	<button data-toggle="modal" data-type1="itemDelete" data-itemId="'.$item_id.'" data-target="#userModal" class="openModal_button btn btn-danger" role="button" aria-pressed="true">Sil</button>
 				<button  data-toggle="modal" data-type1="itemEdit" data-itemId="'.$item_id.'" data-target="#userModal" class="openModal_button btn btn-primary" role="button" aria-pressed="true">Düzenle</button>
@@ -53,12 +56,15 @@ class AjaxKategoriController extends BaseController
 			unset($gelen["data"][$key]["user_id"]);
 		}
 
-		
-
 		echo json_encode($gelen);
+	}
 
+	public function all(){
 
-		
+		$model = $this->model('user/KategoriModel');
+		$kategoriler = $model->getAll();
+
+		echo json_encode(['add_data' => $kategoriler],200);
 	}
 
 	

@@ -1,5 +1,6 @@
  function getItemAjax(url,type,data,rslt)
-    {
+    { 
+      var that = this;
              $.ajax({
                 url: url,
                 type: type,

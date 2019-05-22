@@ -79,7 +79,8 @@ class Authenticate
 	}
 
 	public function user()
-	{
+	{		
+			$this->user_id = $_SESSION['AUTHENTİCATE']["user_id"];
 			$this->user_name = $_SESSION['AUTHENTİCATE']["name"];
 			$this->user_role = $_SESSION['AUTHENTİCATE']["role"];
 			$this->user_email  = $_SESSION['AUTHENTİCATE']["email"];

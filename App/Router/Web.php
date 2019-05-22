@@ -13,5 +13,7 @@ Route::post('/logout','Auth/LoginController@logout');
 Route::get('/dashboard','User/DashboardController@index');
 
 Route::get('/kategoriler','User/KategoriController@index');
+Route::post('/kategoriler/store','User/KategoriController@store');
 
 Route::post('/ajax/kategoriler','Ajax/user/AjaxKategoriController@index');
+Route::post('/ajax/kategoriler/all','Ajax/user/AjaxKategoriController@all');

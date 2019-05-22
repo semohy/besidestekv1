@@ -31,7 +31,7 @@
                     </a></h4>
                         <ul class="nav navbar-nav ml-auto text-white">
                             
-                         <?php if( !$Auth->auth ): ?>
+                         <?php if( !isset($Auth->auth) ): ?>
     
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo APP_URL.'login'; ?>">Giriş</a></li>
@@ -72,7 +72,7 @@
 
             //session_start();
             
-             if( $Auth->auth ){
+             if( isset($Auth->auth) ){
                 require __DIR__.'/sidebar.php';
             }
             echo `

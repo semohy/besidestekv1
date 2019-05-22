@@ -12,6 +12,9 @@
 
    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
 <!-- #end_sayfa head !-->
 
 <?php require __DIR__.'/../../layouts/header.php'; ?>
@@ -45,7 +48,7 @@
 
 <!-- The Modal -->
 <div class="modal" id="userModal">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -99,7 +102,8 @@
         $.fn.dataTable.ext.buttons.addnewrecord = {
           text: 'Yeni Kategori Ekle',
           className: 'btn btn-info openModal_button  openModal_button_dt',
-          action: function ( e, dt, node, config ) {}
+          
+          
         };
 
       //add  open modal property to added button
@@ -108,7 +112,6 @@
                       .attr('data-toggle', 'modal')
                       .attr('data-target', '#userModal')
                       .attr('data-type1','itemAdd')
-                      .attr('data-type2','user');  
         });
 
         //datatable init
@@ -132,32 +135,15 @@
           },
           //'order':[],
           "columns": [
-            { "data": "user_name" },
-            { "data": "user_email" },
-            { "data": "role_name" },
+            { "data": "kategori_id" },
+            { "data": "ust_kategori_id" },
+            { "data": "kategori_adi" },
             { "data": "actions"} 
           ]
   });
   
 
-/*  $('#app_table').DataTable({  // ajax.php dosyasına POST isteği yolluyoruz.
-        "processing": true,
-        "serverSide": true,
-        order:[],
-        "ajax": {
-          url:'',
-          method:"POST",
-          error: function(e){
-               console.log(e);
-           },
-           success: function(e){
-               console.log(e);
-           },
-          
-        }
-      });
-    */
-
+         
     //when click modal buttons 
       
     $('body').on('click','.openModal_button',function(){
@@ -165,106 +151,66 @@
       $('#userModal-body').html(""); //clear modal...
 
       var type1 = $(this).attr("data-type1"); //itemAdd,itemEdit
-      var type2 = $(this).attr("data-type2"); //user,role
 
-      if (type2 == 'userKey') {
           switch(type1) {
 
+            case 'itemAdd':
+
+              var url = '<?php echo APP_URL."ajax/kategoriler/all";?>';
+              var type = 'post';
+              var data = {};
+              getItemAjax(url,type,data,function(e){
+                
+                var e = e.split('add_data');
+                var e = $.parseJSON('{"data'+e[1]);
+                
+
+                $('#userModal-body').html(`<?php include __DIR__.'/_Modals/KategoriAdd.php'; ?>`);
+
+                var html= "<option value='0'>Yok</option>";
+                $.each( e.data, function( key, value ) {
+                  console.log(value);
+                  html += `<option value="`+value.ust_kategori_id+'.'+value.kategori_id+`">`+value.ust_kategori_id+'.'+value.kategori_id+value.kategori_adi+`</option>`;
+                });
+
+                $('#select_category').html(html);
+                $('.js-example-basic-single').select2();
+              });
+                              
+              break;
+
             case 'itemDelete':
-                var url = "{{route('root.ajax.userKey.getUserKey', app()->getLocale())}}";
-                var data = { 
-                             _token: $('meta[name="csrf-token"]').attr('content'), 
-                             id: $(this).attr('data-itemId')
-                           }
-                   getItemAjax(url,"post",data,function(e){
-                      if(e.status == 200)
-                      {//true
-                        var Mbodyhtml = `
-                          <div>`+e.msg+` Kaydı Silinsin mi? <br />
-                          <button data-type1="itemDestroy" data-type2="userKey" data-itemId=`+e.itemId+` class="openModal_button btn btn-danger" role="button" aria-pressed="true">Sil</button>
-                          </div>
-                        `;
-                        $('#userModal-body').html(Mbodyhtml);
-                      }
-                   });             
+                     
             break;
 
             case 'itemDestroy':
-                var url = "{{route('root.ajax.userKey.destroy', app()->getLocale())}}";
-                var data = { 
-                             _token: $('meta[name="csrf-token"]').attr('content'), 
-                             id: $(this).attr('data-itemId')
-                           }
-                   getItemAjax(url,"post",data,function(e){
-                      if(e.status == 200)
-                      {//true
-                        var Mbodyhtml = `
-                            <div class="alert alert-success">
-                                <strong>Başarılı! </strong>`+e.message+`</div>`;
-                        $('#userModal-body').html(Mbodyhtml);
-                        $('#users_table').DataTable().ajax.reload();
-                      }
-                   });
+              
             break;
           
           }
-      }
 
-      if (type2 == 'user') {
-          switch(type1) {
-            case 'itemAdd':
-               $('#userModal-body').html(`@include("Admin.pages.Modals.userRegisterkeyAdd")`);
-              break;
-          }
-      }
 
+ 
 
     });
 
-   
-
-    function destroyItem()
-    {
-      getItemAjax()
-    }
-
-    function addUserKey()
-      {
-        $('#userAdd-alerts').html();
-             $.ajax({
-                url: "{{route('root.ajax.userManagement.create', app()->getLocale())}}",
-                type: "post",
-                data:{
-                  _token: $('meta[name="csrf-token"]').attr('content'),
-                  email : $('#userKeyAdd_email').val(),
-                  date :  $('#userKeyAdd_date').val(),
-                  key:    '{{ session::get("userKey") }}'
-                  } ,
-                success: function (e) {
-                    var html = `<div class="alert alert-success">
-  <strong>Başarılı! </strong>`+e.message+`</div>`;
-                    $('#userAdd-alerts').html(html);
-                    $('#users_table').DataTable().ajax.reload();      
-
-                },
-                error: function(e) {
-                   if(e.status === 422) {
-                    console.log(e);
-                    var errors = e.responseJSON;
-                    var html = '';
-                    $.each(e.responseJSON.errors, function (key, value) {
-                    var error_html = `<div class="alert alert-danger">
-  <strong>Hata! </strong>`+value+`</div>`;
-                      html = html+error_html;
-                    });
-                    $('#userAdd-alerts').html(html);
-                  } else {  console.log(e); }
-                }
-
-
+    function itemStore()
+    {   
+        var url = '<?php echo APP_URL."kategoriler/store";?>';  
+        var data= {
+            ust_cat  : $("select[name='ust_cat']").val(),
+            cat_name : $("input[name='catname']").val(),
+        }
+        getItemAjax(url,"post",data,function(e){
+          var  e= $.parseJSON(e);
+          if(e.status == 200){
+            $('#user-alerts').html(`<div class="alert alert-success"><strong>Başarılı! </strong>`+e.message+`</div>`);
+          }else{
+            $('#user-alerts').html(`<div class="alert alert-danger"><strong>Hata! </strong>`+e.message+`</div>`);
+          }
         });
-
-      }
+                   
+    }
 
 </script>
 

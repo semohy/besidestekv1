@@ -1,4 +1,4 @@
- <?php if( !$Auth->auth ): ?>
+ <?php if( !isset($Auth->auth) ): ?>
 
      <script src="public/js/app.js"></script>
 

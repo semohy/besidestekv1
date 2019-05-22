@@ -33,7 +33,7 @@ class Datatable extends Database
 			$this->relations = $data["relations"]; //joinler
 		}
 
-		if(!empty($data["relations"]) )
+		if(!empty($data["where"]) )
 		{
 			$this->where = $data["where"]; //joinler
 		}
@@ -104,11 +104,12 @@ class Datatable extends Database
 			// $sql .= "ORDER BY icerik_id DESC ";
 		}
 
-		if($length != 1)
+		if($length != 1 && $limit != 0)
 		{
 			// Sayfalama işlemi
-			$sql .= "LIMIT ".$limit.",".$length;
+			$sql .= " LIMIT ".$limit.",".$length;
 		}
+		//echo $limit;exit();
 		$this->veriler = $this->db->prepare($sql);
 		
 		if(!empty($arama_kelime))

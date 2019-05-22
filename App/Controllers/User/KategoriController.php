@@ -27,6 +27,28 @@ class KategoriController extends BaseController
 		return $this->view('template1/pages/user/kategoriler',$this->view_data);
 	}
 
+	public function store(){
+		
+		$posts = $_POST;
+
+		//temzilik vakti...
+		$posts = new ClearInputs($posts);
+		$posts = $posts->clearData;
+
+		if(empty($posts["ust_cat"])){
+			$posts["ust_cat"] = 0;
+		}
+
+		$model = $this->model('user/KategoriModel');
+		$save = $model->save($posts);
+
+		if($save){
+			echo json_encode(['message' => "Kayıt Başarılı" ,"status" => 200]);
+		}else{
+			echo json_encode(['message' => "Kayıt Başarısız!" ,"status" => 400]);
+		}
+
+	}
 	
 
 }
