@@ -253,6 +253,47 @@
       $("i #p_price").html("0,00");
     }
   }
+
+  //urun change olursa cek
+  $('body').on("change",":input[name=adi]",function(){
+    var url = "<?php echo APP_URL.'ajax/satinalim/urun'; ?> ";
+    var type = "post";
+    var data = {
+      stok_kodu : $(":input[name=adi]").val(),
+    };
+
+    getItemAjax(url,type,data,function(e){
+      e = JSON.parse(e);
+      if(e.status == 200){
+          $(":input[name=miktar]").val(e.urun.miktar);
+          $(":input[name=birim]").val(e.urun.birim);
+          $(":input[name=birim_alis_fiyat]").val(e.urun.birim_alis_fiyat);
+          $(":input[name=birim_satis_fiyat]").val(e.urun.birim_satis_fiyat);
+          $(":input[name=alis_satis_birim]").val(e.urun.alis_satis_birim);
+          
+          if(e.urun.stok_takip == 1){
+            $(":input[name=stok_takip]").attr('checked', true);
+          }else{
+            $(":input[name=stok_takip]").attr('checked', false);
+          }
+
+          if (e.urun.kritik_stok_miktar != null) {
+            $(":input[name=kritik_stok_miktar]").val(e.urun.kritik_stok_miktar);
+          }
+          
+      }else{
+          $(":input[name=miktar]").val("");
+          $(":input[name=birim]").val("");
+          $(":input[name=birim_alis_fiyat]").val("");
+          $(":input[name=birim_satis_fiyat]").val("");
+          $(":input[name=alis_satis_birim]").val("");
+          $(":input[name=stok_takip]").attr('checked', true);
+          $(":input[name=kritik_stok_miktar]").val("");
+      }
+
+    });
+
+  });
             
 
 </script>

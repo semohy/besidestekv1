@@ -67,7 +67,20 @@ class SatinAlimController extends BaseController
 			];
 			$posts["stok_kodu"] = $this->stokModel->save($stok_data);
 		}else{
+			//stogu güncelle...
 			$posts["stok_kodu"] = $posts["adi"];
+
+			$ilgili_urun = $this->stokModel->get(["stok_kodu" => $posts["stok_kodu"]]);
+
+			$set_data = [
+				"miktar" => $ilgili_urun->miktar + $posts["miktar"],
+				"birim_alis_fiyat" => $posts["birim_alis_fiyat"],
+				"birim_satis_fiyat" => $posts["birim_satis_fiyat"],
+			];
+
+			$where_data = ["stok_kodu" => $ilgili_urun->stok_kodu];
+
+			$this->stokModel->update($set_data,$where_data);
 		}
 
 		$satinalim_data = [

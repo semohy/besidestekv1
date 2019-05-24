@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 require  'App/Helpers/SessionErrorHandler.php';
 require  'App/Helpers/Authenticate.php';
 
@@ -68,12 +68,20 @@ class AjaxSatinAlimController extends BaseController
 		echo json_encode($gelen);
 	}
 
-	public function all(){
+	public function getStok(){
 
-		$model = $this->model('user/KategoriModel');
-		$kategoriler = $model->getAll();
+		$post = $_POST;
 
-		echo json_encode(['add_data' => $kategoriler],200);
+		$stok_model = $this->model('user/StokModel');
+
+		$urun = $stok_model->get(["stok_kodu" => $post["stok_kodu"]]);
+
+		if (count($urun->stok_kodu) > 0) {
+			echo json_encode(['urun' => $urun,"status" => 200]);
+		}else{
+			echo json_encode(["status" => 400]);
+		}
+		
 	}
 
 	

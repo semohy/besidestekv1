@@ -55,12 +55,54 @@ class StokModel extends BaseModel
 		
 	}
 
+	public function update($set_data,$where_data){
+		$bind_array = [];
+		
+		$set_fields = "";
+		foreach ($set_data as $key => $value) {
+			$set_fields .= $key." = :".$key.",";
+			$bind_array[":".$key] = $value;
+		}
+		
+		$where_fields = "";
+		foreach ($where_data as $key => $value) {
+			$where_fields .= $key." = :".$key." And ";
+			$bind_array[":".$key] = $value;
+		}
+
+		$sql = "UPDATE ".$this->table." SET ".$set_fields." updated_at = :updated_at WHERE ".$where_fields." user_id = :user_id";
+		$q = $this->db->prepare($sql);
+
+		if ($q->execute($bind_array)) {
+			return true;
+		}
+
+	}
+
 	public function getAll(){
 
 		$sql  = 'SELECT * FROM '.$this->table.' WHERE '.$this->table.'.user_id = '.$this->Auth->user_id;
 		$q = $this->db->prepare($sql);
 		$q->execute();
 		return $q->fetchAll(PDO::FETCH_OBJ);
+	}
+
+	public function get($where_data){
+		
+		$bind_array = [];
+		
+		$fields = "";
+		foreach ($where_data as $key => $value) {
+			$fields .= $this->table.'.'.$key.' = :'.$key." And ";
+			$bind_array[":".$key] = $value;
+		}
+
+		$sql  = 'SELECT * FROM '.$this->table.' WHERE '.$fields.' '.$this->table.'.user_id = :user_id';
+		$q = $this->db->prepare($sql);
+
+		$bind_array[":user_id"] = $this->Auth->user_id;
+		$q->execute($bind_array);
+		return $q->fetch(PDO::FETCH_OBJ);
 	}
 
 	public function destroy($posts){
