@@ -5,12 +5,12 @@
 */
 
 
-class StokModel extends BaseModel
+class SatinAlimModel extends BaseModel
 {	
 	protected $timestamp ;
 	protected $Auth ;
 
-	public $table='stoklar';
+	public $table='satin_alinanlar';
 
 	
 
@@ -28,7 +28,13 @@ class StokModel extends BaseModel
 	}
 
 	public  function save($posts){
-		$sql = 'INSERT INTO '.$this->table.' (adi,miktar,birim,birim_alis_fiyat,birim_satis_fiyat,alis_satis_birim,stok_takip,kritik_stok_miktar,updated_at,user_id) VALUES (:adi,:miktar,:birim,:birim_alis_fiyat,:birim_satis_fiyat,:alis_satis_birim,:stok_takip,:kritik_stok_miktar,:updated_at,:user_id)'; 
+		
+		$fields1  = array_keys($posts);
+		$fields = implode(', ', $fields1);
+		$fields_bind = implode(',:', $fields1);
+
+		$sql = 'INSERT INTO '.$this->table.' ('.$fields.',user_id,tarih) VALUES (:'.$fields_bind.', :user_id, :tarih)'; 
+
 		$q = $this->db->prepare($sql);
 
 		$bind_array = [];
@@ -41,8 +47,8 @@ class StokModel extends BaseModel
 			}
 		}
 
-		$bind_array["user_id"] = $this->Auth->user_id;
-		$bind_array["updated_at"] = $this->timestamp;
+		$bind_array[":user_id"] = $this->Auth->user_id;
+		$bind_array[":tarih"] = $this->timestamp;
 
 		try {
 			
@@ -53,14 +59,6 @@ class StokModel extends BaseModel
 			var_dump($e);exit();
 		}
 		
-	}
-
-	public function getAll(){
-
-		$sql  = 'SELECT * FROM '.$this->table.' WHERE '.$this->table.'.user_id = '.$this->Auth->user_id;
-		$q = $this->db->prepare($sql);
-		$q->execute();
-		return $q->fetchAll(PDO::FETCH_OBJ);
 	}
 
 	public function destroy($posts){

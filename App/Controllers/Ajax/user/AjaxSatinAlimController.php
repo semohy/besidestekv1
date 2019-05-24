@@ -7,7 +7,7 @@ require  'App/Helpers/Datatable.php';
 
 require 'App/Helpers/ClearInputs.php';
 
-class AjaxStokController extends BaseController
+class AjaxSatinAlimController extends BaseController
 {
 	public $view_data = array();
 

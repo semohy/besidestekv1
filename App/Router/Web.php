@@ -26,3 +26,8 @@ Route::post('/stoklar/store','User/StokController@store');
 Route::post('/ajax/stoklar','Ajax/user/AjaxStokController@index');
 
 
+Route::get('/satinalim','User/SatinAlimController@index');
+Route::post('/satinalim','User/SatinAlimController@store');
+
+
+

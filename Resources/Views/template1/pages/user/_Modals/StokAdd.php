@@ -83,6 +83,25 @@
     </div>
   </div>
   <hr>
+   <div class="form-group row">
+    <label for="birim" class="col-4 col-form-label">Alım Satım Birimi</label> 
+    <div class="col-8">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-cube"></i>
+          </div>
+        </div> 
+        <input id="birim" name="alis_satis_birim" type="text" class="form-control" required="required">
+        <div class="input-group-append">
+          <div class="input-group-text">
+            /<i class="fa fa-try"></i>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <hr>
   <div class="form-group row">
     <label class="col-4">Stok Takibi Yapılsın</label> 
     <div class="col-8">

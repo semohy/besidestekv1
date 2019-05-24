@@ -22,31 +22,28 @@
 
 <!-- Content !-->
 
-  <div class="container">
+  <div class="container-fluid">
 
 
-    <div class="row">
+    <div class="col-12">
 
-        <div class="col-md-12">
+        <div class="row">
           <div class="user-alerts col-12">
       </div>
             <div class="card">
-              <div class="card-header">Stoklar</div>
+              <div class="card-header">Satın Alımlar</div>
               <div class="card-body">
                    
                    <table id="app_table" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                       <thead>
                         <tr>
+                          <th>Tarih</th>
                           <th>Ürün/Hizmet Adı</th>
                           <th>Miktar</th>  
                           <th>Birim</th>
                           <th>Birim Alış Fiyatı <i class="fa fa-turkish-lira"></i></th>
-                          <th>Birim Satış Fiyatı <i class="fa fa-turkish-lira"></i></th>
-                          <th>Alış Satış Birimi</th>
-                          <th>Stok Takibi</th>
-                          <th>Kritik Stok Miktarı</th>
-                          <th>Son Güncelleme Tarihi</th>
-                          <th>Stok Kodu</th>
+                          <th>Alış Birimi</th>
+                          <th>Toplam Fiyat</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -113,7 +110,7 @@
 
     //set button add record datatable
         $.fn.dataTable.ext.buttons.addnewrecord = {
-          text: 'Yeni Stok Ekle',
+          text: 'Yeni Ekle',
           className: 'btn btn-info openModal_button  openModal_button_dt',
           
           
@@ -149,16 +146,13 @@
           //'order':[],
           "columns": [
             
-            { "data": "adi" },
+            { "data": "Tarih" },
+            { "data": "urun_adi" },
             { "data": "miktar" },
             { "data": "birim"},
             { "data": "birim_alis_fiyat" },
             { "data": "birim_satis_fiyat" },
             { "data": "alis_satis_birim" },
-            { "data": "stok_takip" },
-            { "data": "kritik_stok_miktar" },
-            { "data": "updated_at" },
-            { "data": "stok_kodu" },
             { "data": "actions"}  
           ]
   });

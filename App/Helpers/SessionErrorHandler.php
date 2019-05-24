@@ -7,6 +7,10 @@ class SessionErrorHandler
 	public $errors = array(
 		"errors" => array(),
 	);
+
+	public $success = array(
+		"success" => "",
+	);
 	
 	public function __construct()
 	{
@@ -28,6 +32,12 @@ class SessionErrorHandler
 			}
 			array_push($this->errors["errors"], $_SESSION["errors"]);
 			$_SESSION['errors'] = null;
+		}
+
+		if(isset($_SESSION['success'])){
+			$this->success = $_SESSION["success"];
+			$_SESSION["success"] = null;
+			
 		}
 	}
 
