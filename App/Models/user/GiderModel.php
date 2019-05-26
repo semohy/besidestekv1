@@ -28,7 +28,7 @@ class GiderModel extends BaseModel
 	}
 
 	public  function save($posts){
-		$sql = 'INSERT INTO '.$this->table.' (giderKategori_id,adi,miktar,birim,birim_alis_fiyat,tarih,user_id) VALUES (:giderKategori_id,:adi,:miktar,:birim,:birim_alis_fiyat,:tarih,:user_id)'; 
+		$sql = 'INSERT INTO '.$this->table.' (giderKategori_id,adi,miktar,birim,birim_alis_fiyat,toplam_fiyat,tarih,user_id) VALUES (:giderKategori_id,:adi,:miktar,:birim,:birim_alis_fiyat,:toplam_fiyat,:tarih,:user_id)'; 
 		$q = $this->db->prepare($sql);
 
 		$bind_array = array();

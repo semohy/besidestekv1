@@ -28,7 +28,7 @@ Route::post('/stoklar/item/destroy','User/StokController@destroy');
 Route::post('/stoklar/store','User/StokController@store');
 Route::post('/ajax/stoklar','Ajax/user/AjaxStokController@index');
 
-
+//satinalım ve giderler
 Route::get('/satinalim','User/SatinAlimController@index');
 Route::post('/ajax/satinalim/urun','Ajax/user/AjaxSatinAlimController@getStok');
 Route::post('/satinalim','User/SatinAlimController@store');
@@ -36,3 +36,9 @@ Route::post('/satinalim','User/SatinAlimController@store');
 
 Route::get('/gider','User/giderController@index');
 Route::post('/gider','User/giderController@store');
+
+// Hayvan ve diğer satım
+
+Route::get('/satım/diger','User/SatinAlimController@index');
+
+

@@ -51,6 +51,8 @@ class GiderController extends BaseController
 			$posts["giderKategori_id"] = $eklenen_kategori;
 		}
 
+		$posts["toplam_fiyat"] = $posts["birim_alis_fiyat"] * $posts["miktar"];
+		
 		$save = $this->model("user/GiderModel")->save($posts);
 
 		if($save){

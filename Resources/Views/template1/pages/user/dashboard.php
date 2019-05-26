@@ -3,7 +3,12 @@
 ?>
 
 <!-- sayfa head !-->
-  
+<style type="text/css">
+  .dashboardCard{
+    margin: 5px;
+  }
+</style>
+
 <script type="text/javascript" src="public/js/moment.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/apexcharts" ></script>
@@ -16,8 +21,9 @@
 <div class="container-fluid ">
     
     <div class="col-12">
+      
       <div class="row">
-        <div class="card col-7 bg-light">
+        <div class="card col-6 bg-light dashboardCard">
                 <div class="card-header">Stok Hareketleri</div>
                 <div class="card-body">
                     <div class="col-md-12">
@@ -29,19 +35,18 @@
                     </div>
                 </div>
         </div>
-
-        <div class="card col-5 bg-light">
-                <div class="card-header">Stok Hareketleri</div>
-                <div class="card-body">
-                    <div class="col-md-12">
-                      <div>
+          <div class="card col-5 bg-light dashboardCard">
+                  <div class="card-header">Stok Hareketleri</div>
+                  <div class="card-body">
+                      <div class="col-md-12">
+                        <div>
+                          </div>
+                        <div class=" bg-light ">
+                          <div id="stokChart"></div>
                         </div>
-                      <div class=" bg-light ">
-                        <div id="stokChart"></div>
                       </div>
-                    </div>
-                </div>
-        </div>
+                  </div>
+          </div>
       </div>
   
 
