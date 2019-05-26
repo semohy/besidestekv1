@@ -12,6 +12,8 @@ class StokModel extends BaseModel
 
 	public $table='stoklar';
 
+	public $log_table='stok_log';
+
 	
 
 	
@@ -73,6 +75,9 @@ class StokModel extends BaseModel
 		$sql = "UPDATE ".$this->table." SET ".$set_fields." updated_at = :updated_at WHERE ".$where_fields." user_id = :user_id";
 		$q = $this->db->prepare($sql);
 
+		$bind_array[":updated_at"] = $this->timestamp;
+		$bind_array[":user_id"] = $this->Auth->user_id;
+
 		if ($q->execute($bind_array)) {
 			return true;
 		}
@@ -86,6 +91,8 @@ class StokModel extends BaseModel
 		$q->execute();
 		return $q->fetchAll(PDO::FETCH_OBJ);
 	}
+
+	
 
 	public function get($where_data){
 		
@@ -121,6 +128,25 @@ class StokModel extends BaseModel
 		} catch (Exception $e) {
 			var_dump($e);exit();
 		}
+	}
+
+
+
+
+
+	//for log table....
+
+	public function getLogs($select,$where,$order){
+
+		$sql1  = 'SELECT '.$select.' FROM '.$this->log_table;
+		$sql2  = ' INNER JOIN stoklar on stok_log.stok_kodu = stoklar.stok_kodu ';
+		$sql3  = ' WHERE '.$where.' And '.$this->log_table.'.user_id = '.$this->Auth->user_id.' ORDER BY stok_log.'.$order;
+
+		$sql = $sql1.$sql2.$sql3;
+		
+		$q = $this->db->prepare($sql);
+		$q->execute();
+		return $q->fetchAll(PDO::FETCH_OBJ);
 	}
 
 

@@ -56,15 +56,13 @@
                     <a href="<?php echo APP_URL.'stoklar';?>">Stoklar</a>
                 </li>
 
-                 <li>
-                    <a href="pages/cari.html">Cari Hesaplar</a>
-                </li>
+               
 
                 <li>
                     <a href="#ticarisubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ticari İşlem</a>
                      <ul class="collapse list-unstyled" id="ticarisubmenu">
                         <li>
-                            <a href="#">Satış</a>
+                            <a href="<?php echo APP_URL.'satinalim';?>">Satım Alım</a>
                         </li>
                         <li>
                             <a href="#">Alış</a>
@@ -72,13 +70,13 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#bankaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bankalar</a>
+                    <a href="#bankaSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gelir/Gider</a>
                     <ul class="collapse list-unstyled" id="bankaSubmenu">
                         <li>
-                            <a href="#">Hesaplar</a>
+                            <a href="<?php echo APP_URL.'gelir';?>">Satış Dışı Gelir Ekle</a>
                         </li>
                         <li>
-                            <a href="#">Krediler</a>
+                            <a href="<?php echo APP_URL.'gider';?>">Alım Dışı Gider Ekle</a>
                         </li>
                         <li>
                             <a href="#">Vadeler</a>

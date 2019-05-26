@@ -2,6 +2,7 @@
     { 
       var that = this;
              $.ajax({
+              async: true,
                 url: url,
                 type: type,
                 data: data ,

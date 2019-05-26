@@ -12,6 +12,9 @@ Route::post('/logout','Auth/LoginController@logout');
 
 Route::get('/dashboard','User/DashboardController@index');
 
+//Dashboard ajax
+Route::post('/ajax/dashboardCharts/stoklogs','Ajax/user/AjaxDashboardChartsController@stoklogs');
+
 Route::get('/kategoriler','User/KategoriController@index');
 Route::post('/kategoriler/store','User/KategoriController@store');
 
@@ -31,8 +34,5 @@ Route::post('/ajax/satinalim/urun','Ajax/user/AjaxSatinAlimController@getStok');
 Route::post('/satinalim','User/SatinAlimController@store');
 
 
-Route::get('/gider','User/SatinAlimController@index');
-//Route::post('/satinalim','User/SatinAlimController@store');
-
-
-
+Route::get('/gider','User/giderController@index');
+Route::post('/gider','User/giderController@store');

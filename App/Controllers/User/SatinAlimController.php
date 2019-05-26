@@ -38,14 +38,19 @@ class SatinAlimController extends BaseController
 	public function store(){
 		
 		$posts = $_POST;
-
+		
 		//temzilik vakti...
 		$posts = new ClearInputs($posts);
 		$posts = $posts->clearData;
 
-		//yoksa yeni kategori...
-		if( is_string($posts["gider_kategori"]) ){
-			$posts["gider_kategori"] = $this->giderKategoriModel->save($posts["gider_kategori"]);
+		//yoksa yeni gider kategori...
+		$giderKategori_id = $this->giderKategoriModel->get(["id" => $posts["gider_kategori"]]);
+		$giderKategori_name = $this->giderKategoriModel->get(["name" => $posts["gider_kategori"]]);
+		
+		if( !isset($giderKategori_id->id) && !isset($giderKategori_name->id) ){
+			
+			$eklenen_kategori = $this->giderKategoriModel->save($posts["gider_kategori"]);
+			$posts["gider_kategori"] = $eklenen_kategori;
 		}
 
 		//toplam fiyat için...
@@ -53,8 +58,9 @@ class SatinAlimController extends BaseController
 			$posts["toplam_fiyat"] = $posts["birim_alis_fiyat"] * $posts["miktar"];
 		}
 
+		$urun = $this->stokModel->get(["stok_kodu" => $posts["adi"]]);
 		//yoksa yeni stok girişi...
-		if( is_string($posts["adi"]) ){
+		if( !isset($urun->stok_kodu) ){
 			$stok_data = [
 				"adi" => $posts["adi"],
 			  	'miktar' => $posts["miktar"],

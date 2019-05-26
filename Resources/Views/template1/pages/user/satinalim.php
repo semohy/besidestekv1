@@ -207,31 +207,7 @@
   toplam_fiyat();
 
   $(':input[name=alis_satis_birim], :input[name=birim]').keyup(function(){
-    var birim = $(':input[name=birim]').val();
-    if( $(':input[name=alis_satis_birim]').val() != birim){
-      var html = `<div class="form-group row">
-                    <label for="toplam_fiyat" class="col-4 col-form-label">Toplam Fiyat</label> 
-                    <div class="col-8">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="fa fa-plus"></i>
-                          </div>
-                        </div> 
-                        <input id="toplam_fiyat" name="toplam_fiyat" type="number" step="0.5" min="0" class="form-control" aria-describedby="kritik_stok_miktarHelpBlock">
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <i class="fa fa-try"></i>
-                          </div>
-                        </div> 
-                      </div> 
-                      <span id="kritik_stok_miktarHelpBlock" class="form-text text-muted">Alış ile satış birimi farklı olan ürün toplam giderini belirtmek için kullanılır.</span>
-                    </div>
-                  </div> `;
-      $("#toplam_price").html(html);
-    }else{
-      $("#toplam_price").html("");
-    }
+    alis_satis_birim_kontrol();
   });
 
   $('body').on("change",":input[name=alis_satis_birim],:input[name=toplam_fiyat], :input[name=birim_alis_fiyat],:input[name=miktar]",function(){
@@ -254,6 +230,34 @@
     }
   }
 
+  function alis_satis_birim_kontrol(){
+    var birim = $(':input[name=birim]').val();
+    if( $(':input[name=alis_satis_birim]').val() != birim){
+      var html = `<div class="form-group row">
+                    <label for="toplam_fiyat" class="col-4 col-form-label">Toplam Fiyat</label> 
+                    <div class="col-8">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fa fa-plus"></i>
+                          </div>
+                        </div> 
+                        <input id="toplam_fiyat" name="toplam_fiyat" type="number" step="0.5" min="0" class="form-control" aria-describedby="kritik_stok_miktarHelpBlock" required>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <i class="fa fa-try"></i>
+                          </div>
+                        </div> 
+                      </div> 
+                      <span id="kritik_stok_miktarHelpBlock" class="form-text text-muted">Alış ile satış birimi farklı olan ürün toplam giderini belirtmek için kullanılır.</span>
+                    </div>
+                  </div> `;
+      $("#toplam_price").html(html);
+    }else{
+      $("#toplam_price").html("");
+    }
+  }
+
   //urun change olursa cek
   $('body').on("change",":input[name=adi]",function(){
     var url = "<?php echo APP_URL.'ajax/satinalim/urun'; ?> ";
@@ -265,7 +269,6 @@
     getItemAjax(url,type,data,function(e){
       e = JSON.parse(e);
       if(e.status == 200){
-          $(":input[name=miktar]").val(e.urun.miktar);
           $(":input[name=birim]").val(e.urun.birim);
           $(":input[name=birim_alis_fiyat]").val(e.urun.birim_alis_fiyat);
           $(":input[name=birim_satis_fiyat]").val(e.urun.birim_satis_fiyat);
@@ -282,7 +285,6 @@
           }
           
       }else{
-          $(":input[name=miktar]").val("");
           $(":input[name=birim]").val("");
           $(":input[name=birim_alis_fiyat]").val("");
           $(":input[name=birim_satis_fiyat]").val("");
@@ -290,7 +292,8 @@
           $(":input[name=stok_takip]").attr('checked', true);
           $(":input[name=kritik_stok_miktar]").val("");
       }
-
+      alis_satis_birim_kontrol();
+      toplam_fiyat();
     });
 
   });

@@ -1,7 +1,7 @@
 </head>
 
-<body>
-    <div id="main">
+<body class="bg-secondary">
+    <div id="main" >
 <!-- mobile haeader nav  -->
             <nav class="navbar navbar-expand-lg navs-shadow d-block d-lg-none  sticky-top">
                 <div class="row">

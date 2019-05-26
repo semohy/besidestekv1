@@ -5,12 +5,12 @@
 */
 
 
-class GiderKategoriModel extends BaseModel
+class GiderModel extends BaseModel
 {	
 	protected $timestamp ;
 	protected $Auth ;
 
-	public $table='gider_kategori';
+	public $table='alimdisigider';
 
 	
 
@@ -28,19 +28,22 @@ class GiderKategoriModel extends BaseModel
 	}
 
 	public  function save($posts){
-		$sql = 'INSERT INTO '.$this->table.' (name,user_id) VALUES (:name,:user_id)'; 
+		$sql = 'INSERT INTO '.$this->table.' (giderKategori_id,adi,miktar,birim,birim_alis_fiyat,tarih,user_id) VALUES (:giderKategori_id,:adi,:miktar,:birim,:birim_alis_fiyat,:tarih,:user_id)'; 
 		$q = $this->db->prepare($sql);
-		$bind_array = [
-						
-						":name" => $posts,
-						":user_id" => $this->Auth->user_id,					
-					  ];
-	
-			if ($q->execute($bind_array)) {
-					return $this->db->lastInsertId();
-				}else{
-					return false;
-				}
+
+		$bind_array = array();
+
+		foreach ($posts as $key => $value) {
+			$bind_array[":".$key] = $value;
+		}
+
+		$bind_array[":user_id"] = $this->Auth->user_id;
+
+		if ($q->execute($bind_array)) {
+			return $this->db->lastInsertId();
+		}else{
+			return false;
+		}
 		
 	}
 
