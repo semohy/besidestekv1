@@ -39,6 +39,10 @@ Route::post('/gider','User/giderController@store');
 
 // Hayvan ve diğer satım
 
-Route::get('/satım/diger','User/SatinAlimController@index');
+Route::get('/satim/canlihayvan','User/SatimController@canlihayvan');
 
+Route::get('/satim','User/SatimController@index');
+Route::post('/satim','User/SatimController@store');
+
+Route::post('/ajax/satim/urun','Ajax/user/AjaxSatimController@getStok');
 

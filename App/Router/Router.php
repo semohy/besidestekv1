@@ -64,7 +64,6 @@ class Route
 
 	        			require $controllerFile;
 
-
 	        			call_user_func_array([new $className, $controller[1]], $parameters);
 
 	                 }else{}
