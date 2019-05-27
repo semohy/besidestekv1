@@ -35,16 +35,20 @@ Route::post('/ajax/satinalim/urun','Ajax/user/AjaxSatinAlimController@getStok');
 Route::post('/satinalim','User/SatinAlimController@store');
 
 
-Route::get('/gider','User/giderController@index');
-Route::post('/gider','User/giderController@store');
+Route::get('/gider','User/GiderController@index');
+Route::post('/gider','User/GiderController@store');
 
-// Hayvan ve diğer satım
+// Hayvan ,diğer satım ve fiğer gelirler
 
-Route::get('/satim/canlihayvan','User/SatimController@canlihayvan');
-
+//Route::get('/satim/canlihayvan','User/SatimController@canlihayvan');
 Route::get('/satim','User/SatimController@index');
 Route::post('/ajax/satim/urun','Ajax/user/AjaxSatimController@getStok');
+
+Route::get('/gelir','User/GelirController@index');
+Route::post('/gelir','User/GelirController@store');
+
 Route::post('/satim/store','User/SatimController@save');
 
+//#end
 
 
