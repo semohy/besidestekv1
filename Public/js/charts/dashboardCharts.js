@@ -1,4 +1,4 @@
-async function stokLog_chart(chart_datas,categories){
+ function stokLog_chart(chart_datas,categories){
 
 var formatted_categories = [];
 $.each(categories,function(e){

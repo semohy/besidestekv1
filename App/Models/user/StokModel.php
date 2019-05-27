@@ -140,7 +140,7 @@ class StokModel extends BaseModel
 
 		$sql1  = 'SELECT '.$select.' FROM '.$this->log_table;
 		$sql2  = ' INNER JOIN stoklar on stok_log.stok_kodu = stoklar.stok_kodu ';
-		$sql3  = ' WHERE '.$where.' And '.$this->log_table.'.user_id = '.$this->Auth->user_id.' ORDER BY stok_log.'.$order;
+		$sql3  = ' WHERE '.$where.' And '.$this->log_table.'.user_id = '.$this->Auth->user_id.' '.$order;
 
 		$sql = $sql1.$sql2.$sql3;
 		

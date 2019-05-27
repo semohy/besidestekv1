@@ -36,9 +36,9 @@ class AjaxDashboardChartsController extends BaseController
 
 	public function stoklogs(){
 
-		$lga_select = "stoklar.adi,stok_log.miktar,stok_log.updated_at as time";
-		$where = "stok_log.updated_at > ".$_POST["updated_at"];
-		$order = "updated_at asc ";
+		$lga_select = "stoklar.adi,min(stok_log.miktar) as miktar,stok_log.updated_at as time";
+		$where = "stok_log.stok_kodu = ".$_POST["stok"]." and stok_log.updated_at > ".$_POST["updated_at"];
+		$order = "Group by time order by time asc ";
 		$stok_logs = $this->stokModel->getLogs($lga_select,$where,$order);
 
 		$seriler = [];
@@ -53,9 +53,9 @@ class AjaxDashboardChartsController extends BaseController
 			 }else{	
 			 	array_push($seriler[$r->adi]["data"], $r->miktar);
 			 }
-			 if (!in_array($r->time, $x_label)) {
+			 //if (!in_array($r->time, $x_label)) {
 			 	array_push($x_label, $r->time);
-			 }
+			 //}
 		}
 
 		$data = array(
@@ -66,8 +66,7 @@ class AjaxDashboardChartsController extends BaseController
 		
 	}
 
-	public function stoklogs_c2(){
-
+	public function chartjs(){
 		$lga_select = "stoklar.adi,stok_log.miktar,stok_log.updated_at as time";
 		$where = "stok_log.updated_at > ".$_POST["updated_at"];
 		$order = "updated_at asc ";
@@ -75,15 +74,14 @@ class AjaxDashboardChartsController extends BaseController
 
 		$datasets = [];
 
-		foreach ($stoklogs as $r ) {
+		foreach ($stok_logs as $r ) {
 
-			$p_data = ["name"=> $r->adi, "dataset" => array() ];
-			
 			if (!in_array( $r->adi, array_keys($datasets)) ){
-				array_push($datasets, $p_data);
+				//array_push($datasets, $r->adi);
+				$datasets[$r->adi]["dataset"] = array();
 			}
-			$dataset = ["x"=>$r->updated_at,"y"=>$r->miktar];
-				array_push($datasets[$r->adi]["dataset"], $dataset);
+			$dataset = ["x"=>$r->time,"y"=>$r->miktar];
+		    array_push($datasets[$r->adi]["dataset"], $dataset);
 		}
 
 		echo json_encode($datasets);

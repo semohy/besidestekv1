@@ -18,6 +18,8 @@ class DashboardController extends BaseController
 		$auth->isLogin();
 		$this->view_data["Auth"]  = $auth;
 		
+		$this->stokModel = $this->model("user/StokModel");
+$this->view_data["stoklar"] = $this->stokModel->getAll();
 
 		
 	}
