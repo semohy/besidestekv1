@@ -13,6 +13,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/apexcharts" ></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
 <!-- #end_sayfa head !-->
 
 <?php require __DIR__.'/../../layouts/header.php'; ?>
@@ -36,13 +38,13 @@
                 </div>
         </div>
           <div class="card col-5 bg-light dashboardCard">
-                  <div class="card-header">Stok Hareketleri</div>
+                  <div class="card-header">g2</div>
                   <div class="card-body">
                       <div class="col-md-12">
                         <div>
                           </div>
                         <div class=" bg-light ">
-                          <div id="stokChart"></div>
+                          <canvas id="myChart"></canvas>
                         </div>
                       </div>
                   </div>
@@ -65,17 +67,61 @@
 
 <script>
 
-var url = "<?php echo APP_URL.'ajax/dashboardCharts/stoklogs'; ?>";
-var data = {
-  updated_at : moment().subtract({'months':6}).format('YYYY-MM-DD')
-};
-getItemAjax(url,"post",data,function(e){
-  var e = JSON.parse(e);
+function  stok_chart1(){
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/stoklogs'; ?>";
+  var data = {
+    updated_at : moment().subtract({'months':6}).format('YYYY-MM-DD')
+  };
+  getItemAjax(url,"post",data,function(e){
+    var e = JSON.parse(e);
 
-  var stokLog_chart_datas = e.seriler;
-  var stokLog_categories = e.x;
-  stokLog_chart(stokLog_chart_datas,stokLog_categories);
+    var stokLog_chart_datas = e.seriler;
+    var stokLog_categories = e.x;
+    stokLog_chart(stokLog_chart_datas,stokLog_categories);
 
+  });
+}
+
+//stok_chart1();
+
+//sdadddddddddddddddddddd
+
+var datasets=[];
+
+var url = "<?php echo APP_URL.'ajax/dashboardCharts/stoklogs_c2'; ?>";
+  var data = {
+    updated_at : moment().subtract({'months':6}).format('YYYY-MM-DD')
+  };
+  var that = this;
+  getItemAjax(url,"post",data,function(e){
+    console.log(e);
+    /*var e = JSON.parse(e);
+    $.each(e,function(e){
+
+      var dataset = {
+        label: e.label,
+        data:e.data
+      };
+
+      datasets.push([label])
+
+    });*/
+    
+    
+  });
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+  type: 'line',
+  data: { datasets: datasets },
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'time'
+      }]
+    }
+  }
 });
 
 

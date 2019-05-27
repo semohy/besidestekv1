@@ -1,8 +1,7 @@
  function getItemAjax(url,type,data,rslt)
     { 
-      var that = this;
              $.ajax({
-              async: true,
+             // async: true,
                 url: url,
                 type: type,
                 data: data ,

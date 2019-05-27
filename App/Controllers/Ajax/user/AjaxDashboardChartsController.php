@@ -1,6 +1,6 @@
 <?php
 
-//error_reporting(0);
+error_reporting(0);
 
 require  'App/Helpers/SessionErrorHandler.php';
 require  'App/Helpers/Authenticate.php';
@@ -64,6 +64,29 @@ class AjaxDashboardChartsController extends BaseController
 			);
 		echo json_encode($data);//json_encode($chart_datas);
 		
+	}
+
+	public function stoklogs_c2(){
+
+		$lga_select = "stoklar.adi,stok_log.miktar,stok_log.updated_at as time";
+		$where = "stok_log.updated_at > ".$_POST["updated_at"];
+		$order = "updated_at asc ";
+		$stok_logs = $this->stokModel->getLogs($lga_select,$where,$order);
+
+		$datasets = [];
+
+		foreach ($stoklogs as $r ) {
+
+			$p_data = ["name"=> $r->adi, "dataset" => array() ];
+			
+			if (!in_array( $r->adi, array_keys($datasets)) ){
+				array_push($datasets, $p_data);
+			}
+			$dataset = ["x"=>$r->updated_at,"y"=>$r->miktar];
+				array_push($datasets[$r->adi]["dataset"], $dataset);
+		}
+
+		echo json_encode($datasets);
 	}
 
 	

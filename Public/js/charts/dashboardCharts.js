@@ -2,7 +2,7 @@ async function stokLog_chart(chart_datas,categories){
 
 var formatted_categories = [];
 $.each(categories,function(e){
-  console.log(categories[e]);
+ 
   formatted_categories.push( moment(categories[e]).format('Do MMM YYYY') );
 });
 

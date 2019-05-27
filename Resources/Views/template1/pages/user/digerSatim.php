@@ -36,7 +36,7 @@
             <div class="card">
               <div class="card-header">Canlı Hayvan Dışı Satım</div>
               <div class="card-body">
-                <form method="post" action="<?php echo APP_URL.'satim '?>">
+                <form method="post" action="<?php echo APP_URL.'satim/store '?>">
 
                   <div class="form-group row">
                     <label for="text" class=" col-xs-12 col-md-2  col-form-label">Tarih</label>
@@ -51,8 +51,7 @@
                   <div class="form-group row">
                     <label for="text" class=" col-xs-12 col-md-2  col-form-label">Gelir Kategorisi Seçiniz</label>
                     <div class="col-xs-12 col-10 ">
-                      <select class="js-example-basic-single-tag col-12" id="select_category" style="width:100%;" name="gelir_kategori">
-
+                      <select class="js-example-basic-single-tag col-12" id="select_category" style="width:100%;" name="gelir_kategori" required>
                         <?php foreach($gelir_kategori as $r) : ?>
                           <option value="<?php echo $r->id; ?>"><?php echo $r->adi; ?></option>
                         <?php endforeach ?>
@@ -64,14 +63,16 @@
                   <div class="form-group row">
                     <label for="text" class=" col-xs-12 col-md-2  col-form-label">Ürün/Hizmet Adı</label>
                     <div class="col-xs-12 col-10 ">
-                      <select class="js-example-basic-single col-12" id="select_stok" style="width:100%;" name="stok_kodu" required>
+                      <select class="js-example-basic-single col-12" id="select_stok" style="width:100%;" name="stok_kodu"  aria-describedby="stokHelpBlock" required>
 
                         <?php foreach($stoklar as $r) : ?>
                           <option value="<?php echo $r->stok_kodu; ?>"><?php echo $r->adi; ?></option>
                         <?php endforeach ?>
 
                       </select>
+                      <span id="stokHelpBlock" class="form-text text-muted"></span>
                     </div>
+
                   </div>
                   <hr>
                   <div class="form-group row">
@@ -135,7 +136,7 @@
                             <i class="fa fa-warning"></i>
                           </div>
                         </div> 
-                        <input id="iskonto" name="iskonto" type="number" step="0.1" min="0" class="form-control">
+                        <input id="iskonto" name="iskonto" type="number" value="0" step="0.1" min="0" class="form-control">
                         <div class="input-group-append">
                           <div class="input-group-text">
                             /<i class="fa fa-try"></i>
@@ -224,12 +225,12 @@
     };
 
     getItemAjax(url,type,data,function(e){
-     
       e = JSON.parse(e);
       if(e.status == 200){
-
+          var stokm = 'Stok Mevcudu: '+e.urun.miktar+' '+e.urun.birim;
           $(":input[name=birim_satis_fiyat]").val(e.urun.birim_satis_fiyat);
           $(":input[name=alis_satis_birim]").val(e.urun.alis_satis_birim);
+          $('#stokHelpBlock').html(stokm);
 
       }else{
 

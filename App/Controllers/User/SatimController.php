@@ -35,7 +35,7 @@ class SatimController extends BaseController
 		return $this->view('template1/pages/user/digerSatim',$this->view_data);
 	}
 
-	public function store(){
+	public function save(){
 		
 		$posts = $_POST;
 		
@@ -62,7 +62,7 @@ class SatimController extends BaseController
 
 			
 			$set_data = [
-				"miktar" => $ilgili_urun->miktar + $posts["miktar"],	
+				"miktar" => $ilgili_urun->miktar - $posts["miktar"],	
 			];
 			$where_data = ["stok_kodu" => $ilgili_urun->stok_kodu];
 			$this->stokModel->update($set_data,$where_data);
@@ -85,7 +85,7 @@ class SatimController extends BaseController
 
 		if($save){
 			$_SESSION["success"] = "Kayıt Başarılı";
-			header('location: satim');
+			header('location:'.APP_URL.'satim');
 			exit();
 		}
 

@@ -104,7 +104,7 @@ class Route
 	        		if (file_exists($controllerFile)) {
 
 	        			require_once $controllerFile;
-
+	        			
 	        			$parameters = $_POST;
 	        			call_user_func_array([new $className, $controller[1]], $parameters);
 

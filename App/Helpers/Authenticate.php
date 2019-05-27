@@ -65,7 +65,7 @@ class Authenticate
 			$_SESSION['AUTHENTİCATE']["role"] = $model->getRoleById($user->role_id)->name;
 			$_SESSION['AUTHENTİCATE']["email"] = $user->email;
 
-			$this-user();
+			$this->user();
 			
 			return header('location: dashboard');
 			exit();

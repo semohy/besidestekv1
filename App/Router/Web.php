@@ -14,6 +14,7 @@ Route::get('/dashboard','User/DashboardController@index');
 
 //Dashboard ajax
 Route::post('/ajax/dashboardCharts/stoklogs','Ajax/user/AjaxDashboardChartsController@stoklogs');
+Route::post('/ajax/dashboardCharts/stoklogs_c2','Ajax/user/AjaxDashboardChartsController@stoklogs_c2');
 
 Route::get('/kategoriler','User/KategoriController@index');
 Route::post('/kategoriler/store','User/KategoriController@store');
@@ -42,7 +43,8 @@ Route::post('/gider','User/giderController@store');
 Route::get('/satim/canlihayvan','User/SatimController@canlihayvan');
 
 Route::get('/satim','User/SatimController@index');
-Route::post('/satim','User/SatimController@store');
-
 Route::post('/ajax/satim/urun','Ajax/user/AjaxSatimController@getStok');
+Route::post('/satim/store','User/SatimController@save');
+
+
 

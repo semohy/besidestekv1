@@ -75,7 +75,7 @@ class AjaxSatimController extends BaseController
 		$stok_model = $this->model('user/StokModel');
 
 		$urun = $stok_model->get(["stok_kodu" => $post["stok_kodu"]]);
-
+		
 		if (count($urun->stok_kodu) > 0) {
 			echo json_encode(['urun' => $urun,"status" => 200]);
 		}else{
