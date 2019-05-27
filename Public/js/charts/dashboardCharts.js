@@ -58,11 +58,11 @@ var chart_stokLog = new ApexCharts(document.querySelector("#stokChart"), options
 chart_stokLog.render();
 }
 
-function ApexPie(dom_selector,labels,series,legend_position){
+function ApexPie(dom_selector,width,labels,series,legend_position){
   var options = {
             chart: {
                 type: 'donut',
-                width:350,
+                width:width,
             },
             legend: {
                         position: legend_position
@@ -88,5 +88,61 @@ function ApexPie(dom_selector,labels,series,legend_position){
             options
         );
         
+        chart.render();
+}
+
+function ApexColumn(dom_selector,width,seriler,kategoriler,text){
+  var options = {
+            chart: {
+                width: width,
+                type: 'bar',
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'  
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            series: seriler,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width:250
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }],
+            xaxis: {
+                categories: kategoriler,
+            },
+            yaxis: {
+                title: {
+                    text: text
+                }
+            },
+            fill: {
+                opacity: 1
+
+            },
+            
+        }
+
+        var chart = new ApexCharts(
+            document.querySelector(dom_selector),
+            options
+        );
+
         chart.render();
 }

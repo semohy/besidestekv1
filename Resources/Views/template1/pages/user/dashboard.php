@@ -78,20 +78,51 @@
 
                     <div id="gelirGiderChart"></div>
 
-                    <button class="btn btn-primary col-12" type="button" data-toggle="collapse" data-target="#collapsegiderGelir" aria-expanded="false" aria-controls="collapseExample">Genişlet</button>
+                    <button class="btn btn-primary col-12" id="giderGelir_expand" type="button" data-toggle="collapse" data-target="#collapsegiderGelir" aria-expanded="false" aria-controls="collapseExample">Genişlet</button>
 
                   </div>
           </div>
       </div>
 
       <div class="row collapse"  id="collapsegiderGelir">
-        <div class="card col-md-11 col-sm-12 bg-light ">
-                <div class="card-header">Gelir Gider Expand</div>
+        <div class="card col-md-11 col-sm-12 bg-light  ">
+                <div class="card-header">Gelir Gider Expand <button class="btn btn-danger float-right" type="button" data-toggle="collapse" data-target="#collapsegiderGelir" aria-expanded="false" aria-controls="collapseExample">Kapat</button></div>
+                
                 <div class="card-body">
+                  <div class="row">
+                    <div id="gg_expand_line">
+                      <div class="col-12">
+                            <select id="select" name="sure" class="custom-select">
+                              <option value="6" selected> 6 ay</option>
+                              <option value="12">1 yıl</option>
+                            </select>
+                          </div>
+                    </div>
+                  </div>
+                  <div class="row">
                     
+                    <div class="col-sm-12 col-md-3">
+                        <h5>Gelirler</h5>
+                        <div class="chart1"></div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3">
+                        <h5>Giderler</h5>
+                        <div class="chart2"></div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6" style="overflow-x: auto;">
+                        <h5>Zamana Göre</h5>
+                        <div id="chart3"></div>
+                    </div>
+
+                  </div>   
+                  
+                   
                 </div>
         </div>
       </div>
+      
 
   </div>
 
@@ -115,6 +146,7 @@
     stok_chart1();
   });
 
+
 function  stok_chart1(){
   var sure = $('#stokline :input[name=sure]').val();
   var url = "<?php echo APP_URL.'ajax/dashboardCharts/stoklogs'; ?>";
@@ -123,6 +155,7 @@ function  stok_chart1(){
     updated_at : moment().subtract({'months':sure}).format('YYYY-MM-DD')
   };
   getItemAjax(url,"post",data,function(e){
+    console.log(e);
     var e = JSON.parse(e);
 
     var stokLog_chart_datas = e.seriler;
@@ -134,23 +167,99 @@ function  stok_chart1(){
 
 stok_chart1();
 
+$('body').on('change','#ggline  :input[name=sure] ',function(){
+    $('#gelirGiderChart').empty();
+    gelirGiderChart();
+  });
+
 function gelirGiderChart(){
   var sure = $('#ggline :input[name=sure]').val();
   var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgelirgider'; ?>";
   var data = {
     tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
   };
+
   getItemAjax(url,"post",data,function(e){
+    console.log(e);
     var e = JSON.parse(e);
 
     var seriler = e.seriler;
     var labels = e.labels;
-console.log(seriler);
-    ApexPie("#gelirGiderChart",labels,seriler,"top");
+    
+    ApexPie("#gelirGiderChart",350,labels,seriler,"top");
     });
 }
 
 gelirGiderChart();
+
+//expamd gelir -gider
+$('body').on('click','#giderGelir_expand ',function(){
+    gelirlerChart();
+    giderlerChart();
+   // gelirGiderDate();
+   // ApexColumn(dom_selector,width,seriler,kategoriler,text)
+  });
+$('body').on('change','#gg_expand_line  :input[name=sure] ',function(){
+   gelirlerChart();
+   giderlerChart();
+  });
+
+
+function gelirlerChart(){
+  $('#collapsegiderGelir .chart1').empty();
+  var sure = $('#gg_expand_line :input[name=sure]').val();
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgelirler'; ?>";
+  var data = {
+    tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
+  };
+
+  getItemAjax(url,"post",data,function(e){
+    console.log(e);
+    var e = JSON.parse(e);
+
+    var seriler = e.seriler;
+    var labels = e.labels;
+    
+    ApexPie("#collapsegiderGelir .chart1",280,labels,seriler,"top");
+    });
+}
+
+function giderlerChart(){
+  $('#collapsegiderGelir .chart2').empty();
+  var sure = $('#gg_expand_line :input[name=sure]').val();
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgiderler'; ?>";
+  var data = {
+    tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
+  };
+
+  getItemAjax(url,"post",data,function(e){
+    console.log(e);
+    var e = JSON.parse(e);
+
+    var seriler = e.seriler;
+    var labels = e.labels;
+    
+    ApexPie("#collapsegiderGelir .chart2",280,labels,seriler,"top");
+    });
+}
+
+function gelirGiderDate(){
+  var sure = $('#ggline :input[name=sure]').val();
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgelirGiderDate'; ?>";
+  var data = {
+    tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
+  };
+
+  getItemAjax(url,"post",data,function(e){
+    console.log(e);
+    var e = JSON.parse(e);
+
+    var seriler = e.seriler;
+    var labels = e.labels;
+    
+    ApexPie("#collapsegiderGelir .chart2",280,labels,seriler,"top");
+    });
+}
 
 
 

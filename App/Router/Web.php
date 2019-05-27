@@ -15,6 +15,11 @@ Route::get('/dashboard','User/DashboardController@index');
 //Dashboard ajax
 Route::post('/ajax/dashboardCharts/stoklogs','Ajax/user/AjaxDashboardChartsController@stoklogs');
 Route::post('/ajax/dashboardCharts/chartsgelirgider','Ajax/user/AjaxDashboardChartsController@chartsgelirgider');
+Route::post('/ajax/dashboardCharts/chartsgelirler','Ajax/user/AjaxDashboardChartsController@chartsgelirler');
+Route::post('/ajax/dashboardCharts/chartsgiderler','Ajax/user/AjaxDashboardChartsController@chartsgiderler');
+Route::post('/ajax/dashboardCharts/chartsgelirGiderDate','Ajax/user/AjaxDashboardChartsController@chartsgelirGiderDate');
+
+
 
 Route::get('/kategoriler','User/KategoriController@index');
 Route::post('/kategoriler/store','User/KategoriController@store');

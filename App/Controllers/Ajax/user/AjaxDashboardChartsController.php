@@ -39,10 +39,7 @@ class AjaxDashboardChartsController extends BaseController
 
 	public function stoklogs(){
 
-		$lga_select = "stoklar.adi,min(stok_log.miktar) as miktar,stok_log.updated_at as time";
-		$where = "stok_log.stok_kodu = ".$_POST["stok"]." and stok_log.updated_at > ".$_POST["updated_at"];
-		$order = "Group by time order by time asc ";
-		$stok_logs = $this->stokModel->getLogs($lga_select,$where,$order);
+		$stok_logs = $this->dashboardModel->stoklogs($_POST["stok"],$_POST["updated_at"]);
 
 		$seriler = [];
 		$x_label = [];
@@ -77,6 +74,56 @@ class AjaxDashboardChartsController extends BaseController
 
 		$dataset["seriler"] = [$result->gelir, $result->gider];
 		$dataset["labels"] = ["Gelir","Gider"];
+
+		echo json_encode($dataset);
+	}
+
+	public function chartsgelirler(){
+			
+		$result = $this->dashboardModel->gelirler($_POST["tarih"]);
+			
+		$dataset = array(
+				"seriler" => array(),
+				"labels"  => array(),
+		);
+
+		foreach ($result as $r) {
+				array_push($dataset["seriler"], $r->toplam);
+				array_push($dataset["labels"], $r->kategori);
+		}
+
+		echo json_encode($dataset);
+	}
+
+	public function chartsgiderler(){
+			
+		$result = $this->dashboardModel->giderler($_POST["tarih"]);
+			
+		$dataset = array(
+				"seriler" => array(),
+				"labels"  => array(),
+		);
+
+		foreach ($result as $r) {
+				array_push($dataset["seriler"], $r->toplam);
+				array_push($dataset["labels"], $r->kategori);
+		}
+
+		echo json_encode($dataset);
+	}
+
+	public function chartsgelirGiderDate(){
+		$result = $this->dashboardModel->gelirGiderDate($_POST["tarih"]);
+			
+		$dataset = array(
+				"seriler" => array(),
+				"labels"  => array(),
+		);
+
+		foreach ($result as $r) {
+				array_push($dataset["seriler"], $r->toplam);
+				array_push($dataset["labels"], $r->kategori);
+		}
 
 		echo json_encode($dataset);
 	}
