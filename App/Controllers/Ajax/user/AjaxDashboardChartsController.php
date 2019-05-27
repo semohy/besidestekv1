@@ -16,6 +16,7 @@ class AjaxDashboardChartsController extends BaseController
 	private $user_id;
 
 	protected $stokModel;
+	protected $dashboardModel;
 
 	public function __construct()
 	{	
@@ -31,6 +32,8 @@ class AjaxDashboardChartsController extends BaseController
 		$this->user_id = $auth->user_id;
 		
 		$this->stokModel = $this->model('user/StokModel');
+
+		$this->dashboardModel = $this->model('user/DashboardModel');
 
 	}
 
@@ -66,25 +69,16 @@ class AjaxDashboardChartsController extends BaseController
 		
 	}
 
-	public function chartjs(){
-		$lga_select = "stoklar.adi,stok_log.miktar,stok_log.updated_at as time";
-		$where = "stok_log.updated_at > ".$_POST["updated_at"];
-		$order = "updated_at asc ";
-		$stok_logs = $this->stokModel->getLogs($lga_select,$where,$order);
+	public function chartsgelirgider(){
+			
+		$result = $this->dashboardModel->gelirgider($_POST["tarih"]);
+			
+		$dataset = array();
 
-		$datasets = [];
+		$dataset["seriler"] = [$result->gelir, $result->gider];
+		$dataset["labels"] = ["Gelir","Gider"];
 
-		foreach ($stok_logs as $r ) {
-
-			if (!in_array( $r->adi, array_keys($datasets)) ){
-				//array_push($datasets, $r->adi);
-				$datasets[$r->adi]["dataset"] = array();
-			}
-			$dataset = ["x"=>$r->time,"y"=>$r->miktar];
-		    array_push($datasets[$r->adi]["dataset"], $dataset);
-		}
-
-		echo json_encode($datasets);
+		echo json_encode($dataset);
 	}
 
 	

@@ -27,10 +27,11 @@
     <div class="col-12">
       
       <div class="row">
-        <div class="card col-6 bg-light dashboardCard">
+
+        <div class="card col-md-8 col-sm-12 bg-light dashboardCard">
                 <div class="card-header">Stok Hareketleri</div>
                 <div class="card-body">
-                    <div class="col-md-12">
+                    <div class="col-12">
                       <div>
                         </div>
                       <div class="bg-light ">
@@ -61,20 +62,36 @@
                     </div>
                 </div>
         </div>
-          <div class="card col-5 bg-light dashboardCard">
-                  <div class="card-header">g2</div>
+
+          <div class="card col-md-3 col-sm-12 bg-light dashboardCard">
+                  <div class="card-header">Gelir Gider Dengesi</div>
                   <div class="card-body">
-                      <div class="col-md-12">
-                        <div>
+
+                    <div id="ggline">
+                      <div class="col-12">
+                            <select id="select" name="sure" class="custom-select">
+                              <option value="6" selected> 6 ay</option>
+                              <option value="12">1 yıl</option>
+                            </select>
                           </div>
-                        <div class=" bg-light ">
-                          <canvas id="myChart"></canvas>
-                        </div>
-                      </div>
+                    </div>
+
+                    <div id="gelirGiderChart"></div>
+
+                    <button class="btn btn-primary col-12" type="button" data-toggle="collapse" data-target="#collapsegiderGelir" aria-expanded="false" aria-controls="collapseExample">Genişlet</button>
+
                   </div>
           </div>
       </div>
-  
+
+      <div class="row collapse"  id="collapsegiderGelir">
+        <div class="card col-md-11 col-sm-12 bg-light ">
+                <div class="card-header">Gelir Gider Expand</div>
+                <div class="card-body">
+                    
+                </div>
+        </div>
+      </div>
 
   </div>
 
@@ -90,6 +107,7 @@
 
 
 <script>
+
   $('.js-example-basic-single').select2();
 
   $('body').on('change','#stokline  :input[name=sure] , #stokline :input[name=stok_kodu]',function(){
@@ -116,46 +134,24 @@ function  stok_chart1(){
 
 stok_chart1();
 
-//sdadddddddddddddddddddd
-/*
-var datasets=[]
-
-var url2 = "<?php echo APP_URL.'ajax/dashboardCharts/chartjs/stoklogs'; ?>";
+function gelirGiderChart(){
+  var sure = $('#ggline :input[name=sure]').val();
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgelirgider'; ?>";
   var data = {
-    updated_at : moment().subtract({'months':6}).format('YYYY-MM-DD')
+    tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
   };
-  
-  getItemAjax(url2,"post",data,function(e){
-
+  getItemAjax(url,"post",data,function(e){
     var e = JSON.parse(e);
-    $.each(e,function(x){
-        
-      var dataset = {
-        'label': x,
-        'data':e[x].dataset,
 
-      };
-      datasets.data.push(dataset);
-      
+    var seriler = e.seriler;
+    var labels = e.labels;
+console.log(seriler);
+    ApexPie("#gelirGiderChart",labels,seriler,"top");
     });
-  });
+}
 
-console.log(datasets.data[0]);
+gelirGiderChart();
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-  type: 'line',
-  data: { datasets: datasets },
-  options: {
-    scales: {
-      xAxes: [{
-        type: 'time'
-      }]
-    }
-  }
-});
-
-*/
 
 
 </script>

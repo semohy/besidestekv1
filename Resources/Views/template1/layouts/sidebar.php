@@ -4,11 +4,11 @@
             <ul class="list-unstyled components">
                 <li>
                         <div class="row">
-                            <img class="fas fa-user rounded-circle mx-auto" style="border: 2px solid;width: 100px;  height: 100px;padding: 15px; margin-bottom: 10px;"/>
+                            <img class="mx-auto" src="Public/img/besidestek.png" style="width: 200px; height: 200px;padding: 15px; margin-bottom: 10px;"/>
                         </div>
                 </li>
                     <div class="row">
-                        <p class="mx-auto"> <?php echo $Auth->user_name; ?> </p>
+                        <p class="mx-auto"> <?php $Auth->user(); echo $Auth->user_name; ?> </p>
                     </div>
                     <div class="row">
                         <b class="row mx-auto">İşletme:</b> <?php echo $Auth->user_email; ?>
@@ -47,26 +47,20 @@
                 </li>
 
                 <!--sidebar contents here -->
-
                 <li>
-                    <a href="<?php echo APP_URL.'kategoriler';?>">Kategoriler</a>
+                    <a href="<?php echo APP_URL.'dashboard';?>">Dashboard</a>
                 </li>
-
-                <li>
-                    <a href="<?php echo APP_URL.'stoklar';?>">Stoklar</a>
-                </li>
-
-               
 
                 <li>
                     <a href="#ticarisubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ticari İşlem</a>
                      <ul class="collapse list-unstyled" id="ticarisubmenu">
                         <li>
-                            <a href="<?php echo APP_URL.'satinalim';?>">Satım Alım</a>
+                            <a href="<?php echo APP_URL.'satim';?>">Satım</a>
                         </li>
                         <li>
-                            <a href="#">Alış</a>
+                            <a href="<?php echo APP_URL.'satinalim';?>">Satın Alım</a>
                         </li>
+                        
                     </ul>
                 </li>
                 <li>
@@ -78,39 +72,32 @@
                         <li>
                             <a href="<?php echo APP_URL.'gider';?>">Alım Dışı Gider Ekle</a>
                         </li>
-                        <li>
-                            <a href="#">Vadeler</a>
-                        </li>
                     </ul>
                 </li>
                 <li>
                     <a href="#stokSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stoklar</a>
                     <ul class="collapse list-unstyled" id="stokSubmenu">
                         <li>
-                            <a href="#">Tüm Stoklar</a>
-                        </li>
+                            <a href="<?php echo APP_URL.'stoklar';?>">Tüm Stoklar</a>
+                         </li>
                         <li>
                             <a href="#">Depolar</a>
                         </li>
                     </ul>
                 </li>
+                <hr >
                 <li>
-                    <a href="#ifSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">İrsaliye ve Fatura</a>
-                    <ul class="collapse list-unstyled" id="ifSubmenu">
+                    <a href="#hayvanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Hayvan</a>
+                    <ul class="collapse list-unstyled" id="hayvanSubmenu">
                         <li>
-                            <a href="#">İrsaliye Göster</a>
-                        </li>
+                            <a href="<?php echo APP_URL.'stoklar';?>">Hayvanlar</a>
+                         </li>
                         <li>
-                            <a href="#">İrsaliye Düzenle</a>
-                        </li>
-                        <li>
-                            <a href="#">Fatura Göster</a>
-                        </li>
-                        <li>
-                            <a href="#">Fatura Düzenle</a>
+                            <a href="<?php echo APP_URL.'kategoriler';?>">Kategoriler</a>
                         </li>
                     </ul>
                 </li>
+              
 
                 <!-- #END_Sidebarlayouts -->
                 

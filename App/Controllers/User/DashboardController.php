@@ -7,7 +7,6 @@ class DashboardController extends BaseController
 {
 	public $view_data = array();
 
-
 	public function __construct()
 	{	
 		
@@ -19,7 +18,7 @@ class DashboardController extends BaseController
 		$this->view_data["Auth"]  = $auth;
 		
 		$this->stokModel = $this->model("user/StokModel");
-$this->view_data["stoklar"] = $this->stokModel->getAll();
+		$this->view_data["stoklar"] = $this->stokModel->getAll();
 
 		
 	}

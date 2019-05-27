@@ -57,3 +57,36 @@ var chart_stokLog = new ApexCharts(document.querySelector("#stokChart"), options
 
 chart_stokLog.render();
 }
+
+function ApexPie(dom_selector,labels,series,legend_position){
+  var options = {
+            chart: {
+                type: 'donut',
+                width:350,
+            },
+            legend: {
+                        position: legend_position
+                    },
+
+            series: series,
+            labels:labels,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width:250
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        }
+
+       var chart = new ApexCharts(
+            document.querySelector(dom_selector),
+            options
+        );
+        
+        chart.render();
+}

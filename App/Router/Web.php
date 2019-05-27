@@ -14,7 +14,7 @@ Route::get('/dashboard','User/DashboardController@index');
 
 //Dashboard ajax
 Route::post('/ajax/dashboardCharts/stoklogs','Ajax/user/AjaxDashboardChartsController@stoklogs');
-Route::post('/ajax/dashboardCharts/chartjs/stoklogs','Ajax/user/AjaxDashboardChartsController@chartjs');
+Route::post('/ajax/dashboardCharts/chartsgelirgider','Ajax/user/AjaxDashboardChartsController@chartsgelirgider');
 
 Route::get('/kategoriler','User/KategoriController@index');
 Route::post('/kategoriler/store','User/KategoriController@store');
