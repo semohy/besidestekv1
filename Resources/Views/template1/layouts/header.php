@@ -9,7 +9,7 @@
                         <i class="fas fa-align-left"></i>
                         <span>Toggle Sidebar</span>
                     </button>
-                    <div class="text-white offset-3"><a class="navbar-brand" href="{{ url('/',app()->getLocale()) }}">
+                    <div class="text-white offset-3"><a class="navbar-brand" href="#">
                         <?php echo APP_NAME; ?>
                     </a></div>
                 </div>
@@ -57,7 +57,7 @@
 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"data-toggle="tooltip" data-placement="bottom" title="Çıkış Yap" href="{{ route('logout',app()->getLocale())  }}"
+                                <a class="nav-link"data-toggle="tooltip" data-placement="bottom" title="Çıkış Yap" href="#"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i></a>
                                 <form id="logout-form" action="<?php echo APP_URL.'logout'; ?>" method="POST" style="display: none;">

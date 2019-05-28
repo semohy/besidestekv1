@@ -8,7 +8,7 @@ Route::post('/register','Auth/RegisterController@store');
 Route::get('/login','Auth/LoginController@index');
 
 Route::post('/login','Auth/LoginController@login');
-Route::post('/logout','Auth/LoginController@logout');
+Route::post('/logout','Auth/LogoutController@logout');
 
 Route::get('/dashboard','User/DashboardController@index');
 
