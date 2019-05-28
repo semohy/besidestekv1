@@ -215,7 +215,7 @@ function gelirlerChart(){
   };
 
   getItemAjax(url,"post",data,function(e){
-    //console.log(e);
+    console.log(e);
     var e = JSON.parse(e);
 
     var seriler = e.seriler;
@@ -266,6 +266,7 @@ function gelirGiderDate(){
       data : e["gider"]
     }];
 
+    
     var kategoriler = e["aylar_kategori"];
     
     ApexColumn("#collapsegiderGelir .chart3",650,seriler,kategoriler,"TL");

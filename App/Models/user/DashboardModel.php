@@ -38,7 +38,7 @@ class DashboardModel extends BaseModel
 	public function gelirgider($min_tarih)
 	{
 
-		$sql = 'SELECT CAST(SUM('.$this->table_gelir.'.toplam) as unsigned) as gelir, CAST(SUM('.$this->table_gider.'.toplam) as unsigned) as gider FROM '.$this->table_gelir.','.$this->table_gider.' WHERE ( view_gelirler.tarih > "'.$min_tarih.'"  and view_giderler.tarih > "'.$min_tarih.'" ) AND (view_gelirler.user_id = '.$this->Auth->user_id.'  and view_giderler.user_id = '.$this->Auth->user_id.')';
+		$sql = 'SELECT CAST(gelir as unsigned) as gelir,CAST(gider as unsigned) as gider from (SELECT sum(view_gelirler.toplam) as gelir FROM view_gelirler WHERE tarih > "'.$min_tarih.'" and user_id = '.$this->Auth->user_id.' ) as gelir, (select sum(view_giderler.toplam) as gider from view_giderler WHERE tarih > "'.$min_tarih.'" and user_id = '.$this->Auth->user_id.') as gider';
 			
 		$q = $this->db->prepare($sql);
 		
@@ -65,7 +65,6 @@ class DashboardModel extends BaseModel
 		$sql = 'SELECT CAST(SUM(view_giderler.toplam) as unsigned) as toplam, gider_kategori.name as kategori FROM view_giderler  '.$joins.' WHERE view_giderler.tarih > "'.$min_tarih.'"  AND view_giderler.user_id = '.$this->Auth->user_id.' group by view_giderler.kategori';
 		
 		$q = $this->db->prepare($sql);
-		
 		$q->execute();
 		return $q->fetchAll(PDO::FETCH_OBJ);
 
