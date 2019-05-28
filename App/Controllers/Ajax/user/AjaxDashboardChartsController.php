@@ -113,19 +113,67 @@ class AjaxDashboardChartsController extends BaseController
 	}
 
 	public function chartsgelirGiderDate(){
-		$result = $this->dashboardModel->gelirGiderDate($_POST["tarih"]);
-			
-		$dataset = array(
-				"seriler" => array(),
-				"labels"  => array(),
-		);
 
-		foreach ($result as $r) {
-				array_push($dataset["seriler"], $r->toplam);
-				array_push($dataset["labels"], $r->kategori);
+		$simdi = new Datetime();
+		$gecmis = new Datetime($_POST["tarih"]);
+		$fark = $gecmis->diff($simdi)->days/30;
+		$fark = intval($fark);
+
+		$aylar_kategori = array();
+		for ($i=$fark; $i >=1 ; $i--) { 
+			$yeni = $gecmis->modify('+1 month'); 
+			array_push($aylar_kategori, $yeni->format("Y-n"));
 		}
 
-		echo json_encode($dataset);
+
+		$result = $this->dashboardModel->gelirGiderDate($_POST["tarih"]);
+		
+		$datasets= array('gelir'=>array(),'gider' => array());
+
+		$gider_data = array();
+		
+		for ($i=0; $i < $fark ; $i++) { 
+			array_push($gider_data, 0);
+		}
+
+		foreach ($result[0] as $r) {
+			if(in_array($r->ay, $aylar_kategori)){
+				$key = array_search($r->ay,$aylar_kategori);
+				$gider_data[$key] = $r->gider;
+			}
+		}
+
+		$gelir_data = array();
+		
+		for ($i=0; $i < $fark ; $i++) { 
+			array_push($gelir_data, 0);
+		}
+
+		foreach ($result[1] as $r) {
+			if(in_array($r->ay, $aylar_kategori)){
+				$key = array_search($r->ay,$aylar_kategori);
+				$gelir_data[$key] = $r->gelir;
+			}
+		}
+		/*
+		foreach ($result[0] as $r) { //gider
+			//echo $r->ay;exit();
+			foreach ($aylar_kategori as $ak) {
+				if ($r->ay != $ak) {
+					array_push($datasets["gider"], 0);
+				}else{
+					array_push($datasets["gider"], $r->gider);
+				}
+			}
+		}
+		*/
+
+		$datasets["gider"] = $gider_data;
+		$datasets["gelir"] = $gelir_data;
+
+		$datasets["aylar_kategori"] = $aylar_kategori;
+
+		echo json_encode($datasets);
 	}
 
 	

@@ -73,7 +73,7 @@ class DashboardModel extends BaseModel
 
 	public function gelirGiderDate($min_tarih)
 	{
-		$sql1 = 'SELECT sum(view_gelirler.toplam) as gelir, EXTRACT(MONTH FROM view_gelirler.tarih) as ay  FROM view_gelirler WHERE
+		$sql1 = 'SELECT sum(view_gelirler.toplam) as gelir, CONCAT(EXTRACT(YEAR FROM view_gelirler.tarih),"-",EXTRACT(MONTH FROM view_gelirler.tarih)) as ay  FROM view_gelirler WHERE
 		 view_gelirler.tarih > "'.$min_tarih.'" and view_gelirler.user_id = '.$this->Auth->user_id.' Group By ay order by ay asc';
 
 		$q_gelir = $this->db->prepare($sql1);
@@ -81,7 +81,7 @@ class DashboardModel extends BaseModel
 		
 		$gelir = $q_gelir->fetchAll(PDO::FETCH_OBJ);
 
-		$sql2 = 'SELECT sum(view_giderler.toplam) as gider, EXTRACT(MONTH FROM view_giderler.tarih) as ay  FROM view_giderler WHERE
+		$sql2 = 'SELECT sum(view_giderler.toplam) as gider, CONCAT(EXTRACT(YEAR FROM view_giderler.tarih),"-",EXTRACT(MONTH FROM view_giderler.tarih)) as ay  FROM view_giderler WHERE
 		 view_giderler.tarih > "'.$min_tarih.'" and view_giderler.user_id = '.$this->Auth->user_id.' Group By ay order by ay asc';
 
 		$q_gider = $this->db->prepare($sql2);

@@ -113,7 +113,7 @@
 
                     <div class="col-sm-12 col-md-6" style="overflow-x: auto;">
                         <h5>Zamana Göre</h5>
-                        <div id="chart3"></div>
+                        <div class="chart3"></div>
                     </div>
 
                   </div>   
@@ -155,7 +155,7 @@ function  stok_chart1(){
     updated_at : moment().subtract({'months':sure}).format('YYYY-MM-DD')
   };
   getItemAjax(url,"post",data,function(e){
-    console.log(e);
+    //console.log(e);
     var e = JSON.parse(e);
 
     var stokLog_chart_datas = e.seriler;
@@ -180,7 +180,7 @@ function gelirGiderChart(){
   };
 
   getItemAjax(url,"post",data,function(e){
-    console.log(e);
+    //console.log(e);
     var e = JSON.parse(e);
 
     var seriler = e.seriler;
@@ -202,6 +202,7 @@ $('body').on('click','#giderGelir_expand ',function(){
 $('body').on('change','#gg_expand_line  :input[name=sure] ',function(){
    gelirlerChart();
    giderlerChart();
+   gelirGiderDate();
   });
 
 
@@ -214,7 +215,7 @@ function gelirlerChart(){
   };
 
   getItemAjax(url,"post",data,function(e){
-    console.log(e);
+    //console.log(e);
     var e = JSON.parse(e);
 
     var seriler = e.seriler;
@@ -233,7 +234,7 @@ function giderlerChart(){
   };
 
   getItemAjax(url,"post",data,function(e){
-    console.log(e);
+    //console.log(e);
     var e = JSON.parse(e);
 
     var seriler = e.seriler;
@@ -244,7 +245,8 @@ function giderlerChart(){
 }
 
 function gelirGiderDate(){
-  var sure = $('#ggline :input[name=sure]').val();
+  $('#collapsegiderGelir .chart3').empty();
+  var sure = $('#gg_expand_line :input[name=sure]').val();
   var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsgelirGiderDate'; ?>";
   var data = {
     tarih : moment().subtract({'months':sure}).format('YYYY-MM-DD')
@@ -253,13 +255,23 @@ function gelirGiderDate(){
   getItemAjax(url,"post",data,function(e){
     console.log(e);
     var e = JSON.parse(e);
-
-    var seriler = e.seriler;
-    var labels = e.labels;
     
-    ApexPie("#collapsegiderGelir .chart2",280,labels,seriler,"top");
+    var seriler=[{
+      name : 'Gelir',
+      type : 'column',
+      data : e["gelir"]
+    },{
+      name : 'Gider',
+      type : 'column',
+      data : e["gider"]
+    }];
+
+    var kategoriler = e["aylar_kategori"];
+    
+    ApexColumn("#collapsegiderGelir .chart3",650,seriler,kategoriler,"TL");
     });
 }
+gelirGiderDate();
 
 
 
