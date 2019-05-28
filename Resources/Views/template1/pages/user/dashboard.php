@@ -117,12 +117,48 @@
                     </div>
 
                   </div>   
-                  
-                   
                 </div>
         </div>
       </div>
       
+<!-- 2.satır -->
+  <div class="row">
+    <div class="card col-md-11 col-sm-12 bg-light dashboardCard">
+      <div class="card-header">Fiyatlar</div>
+          <div class="card-body">
+              <div class="col-12">
+                <div class="bg-light ">
+                    
+                    <div id="fiyatline" class="row">
+                      <div class="col-md-6 col-xs-12">
+                        <select class="js-example-basic-single custom-select col-md-6 col-xs-12" id="select_stok" style="width:100%;" name="stok_kodu" " required>
+                        <?php  $stok_select_counter = 0; ?>
+                        <?php foreach($stoklar as $r) : ?>
+                          <?php if($stok_select_counter == 0): ?>
+                            <option value="<?php echo $r->stok_kodu; ?>" selected><?php echo $r->adi; ?></option>
+                          <?php else: ?>
+                            <option value="<?php echo $r->stok_kodu; ?>"><?php echo $r->adi; ?></option>
+                          <?php endif ?>
+                          <?php  $stok_select_counter = 1; ?> 
+                        <?php endforeach ?>
+
+                      </select>
+                          </div>
+                          <div class="col-md-6 col-xs-12">
+                            <select id="select" name="sure" class="js-example-basic-single col-md-6 col-xs-12">
+                              <option value="6" selected> 6 ay</option>
+                              <option value="12">1 yıl</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div id="fiyatChart"></div>
+
+                                </div>
+                              </div>
+                          </div>
+                  </div>
+            </div>
 
   </div>
 
@@ -273,6 +309,41 @@ function gelirGiderDate(){
     });
 }
 gelirGiderDate();
+
+$('body').on('change','#fiyatline  :input[name=sure],#fiyatline  :input[name=stok_kodu] ',function(){
+   fiyatlarChart();
+  });
+
+function fiyatlarChart(){
+  $('#fiyatChart').empty();
+  var sure = $('#fiyatline :input[name=sure]').val();
+  var url = "<?php echo APP_URL.'ajax/dashboardCharts/chartsfiyatlar'; ?>";
+  var data = {
+    stok: $('#fiyatline :input[name=stok_kodu]').val(),
+    updated_at : moment().subtract({'months':sure}).format('YYYY-MM-DD')
+  };
+
+  getItemAjax(url,"post",data,function(e){
+    console.log(e);
+    var e = JSON.parse(e);
+    
+    var seriler=[{
+      name : 'Alış Fiyatı',
+      type : 'column',
+      data : e["alis"]
+    },{
+      name : 'Satış Fiyatı',
+      type : 'column',
+      data : e["satis"]
+    }];
+
+    
+    var kategoriler = e["tarih"];
+    
+    ApexColumn(" #fiyatChart",650,seriler,kategoriler,"TL");
+    });
+}
+fiyatlarChart();
 
 
 

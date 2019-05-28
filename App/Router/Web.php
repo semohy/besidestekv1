@@ -18,6 +18,8 @@ Route::post('/ajax/dashboardCharts/chartsgelirgider','Ajax/user/AjaxDashboardCha
 Route::post('/ajax/dashboardCharts/chartsgelirler','Ajax/user/AjaxDashboardChartsController@chartsgelirler');
 Route::post('/ajax/dashboardCharts/chartsgiderler','Ajax/user/AjaxDashboardChartsController@chartsgiderler');
 Route::post('/ajax/dashboardCharts/chartsgelirGiderDate','Ajax/user/AjaxDashboardChartsController@chartsgelirGiderDate');
+Route::post('/ajax/dashboardCharts/chartsfiyatlar','Ajax/user/AjaxDashboardChartsController@chartsfiyatlar');
+
 
 
 
@@ -55,5 +57,9 @@ Route::post('/gelir','User/GelirController@store');
 Route::post('/satim/store','User/SatimController@save');
 
 //#end
+
+//yem
+
+//Route::get('/yemrasyosu','User/YemRasyoController@index');
 
 

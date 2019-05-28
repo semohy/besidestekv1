@@ -176,6 +176,31 @@ class AjaxDashboardChartsController extends BaseController
 		echo json_encode($datasets);
 	}
 
+	public function chartsfiyatlar(){
+
+		$stok_logs = $this->dashboardModel->chartsfiyatlar($_POST["stok"],$_POST["updated_at"]);
+		
+		$alis = [];
+		$satis = [];
+		$tarih = [];
+		foreach ($stok_logs as $r) {
+			
+			array_push($alis, $r->birim_alis_fiyat);
+			array_push($satis, $r->birim_satis_fiyat);
+			array_push($tarih, $r->updated_at);
+		}
+
+		$data = array(
+				"alis" => $alis,
+				"satis" => $satis,
+				"tarih" => $tarih
+			);
+
+		echo json_encode($data);
+		
+	}
+	
+
 	
 
 }

@@ -92,5 +92,15 @@ class DashboardModel extends BaseModel
 
 	}
 
+	public function chartsfiyatlar($stok_kodu,$min_tarih){
+		$sql = 'SELECT stok_log.stok_kodu,min(miktar) as miktar,updated_at,birim_alis_fiyat,birim_satis_fiyat FROM stok_log where stok_log.stok_kodu = '.$stok_kodu.' and stok_log.user_id = '.$this->Auth->user_id.' and stok_log.updated_at > "'.$min_tarih.'" GROUP by stok_log.updated_at order by updated_at asc';
+		
+		$q = $this->db->prepare($sql);
+		$q->execute();
+		return $q->fetchAll(PDO::FETCH_OBJ);
+
+
+	}
+
 
 }
