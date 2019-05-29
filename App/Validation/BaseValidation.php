@@ -17,7 +17,7 @@ class BaseValidation extends Database
 		'unique'   => "daha önce kaydedilmiş"
 	);
 
-	protected function __construct($posts)
+	public function __construct($posts)
 	{	
 		parent::__construct();
 		$this->posts = $posts;
